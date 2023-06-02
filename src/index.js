@@ -6,7 +6,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import ListingReducer, { ListingsFetch } from "./hooks/ListingSlice";
 import { ListingApi } from "./hooks/ListingApi";
 import { Provider } from "react-redux";
-import authReducer from "./hooks/authSlice";
+import authReducer, { loadUser } from "./hooks/authSlice";
 
 const store = configureStore({
   reducer: {
@@ -19,6 +19,7 @@ const store = configureStore({
 });
 
 store.dispatch(ListingsFetch());
+store.dispatch(loadUser(null));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

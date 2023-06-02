@@ -5,17 +5,24 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
-import { useDispatch } from "react-redux";
-import { setLogin } from "../../state";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../hooks/authSlice";
 
 const Login = () => {
   useEffect(() => {
     document.title = "Login - RAuto";
   });
+
   const navigate = useNavigate();
+  useEffect(() => {
+    if (auth._id) {
+      navigate("/");
+    }
+  });
   const [showpassword, setShowPassword] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
-  const [isLoading, setIsLoading] = useState(false);
+  const auth = useSelector((state) => state.auth);
+  console.log("auth:", auth);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -34,25 +41,12 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    setIsLoading(true);
     try {
-      const loggedInResponse = await fetch("http://localhost:4000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
-
-      const loggedin = await loggedInResponse.json();
-      if (loggedin) {
-        toast.success("Login successful");
-        dispatch(setLogin({ user: loggedin.user }));
-        // navigate("/");
-      }
+      dispatch(loginUser(user));
     } catch (error) {
-      console.log(error);
-      toast.error(`Failed: ${error.response.data}`, { position: "top-center" });
+      console.log(auth.loginError);
+      toast.error(`Failed: ${auth.loginError}`, { position: "top-center" });
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -90,7 +84,7 @@ const Login = () => {
           onClick={handleLogin}
           disabled={!user.email || !user.password}
         >
-          {isLoading ? <ClipLoader size={23} /> : "Login"}
+          {auth.loginStatus === "pending" ? <ClipLoader size={23} /> : "Login"}
         </button>
         <div className="flex gap-4">
           <p

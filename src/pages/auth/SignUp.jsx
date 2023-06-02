@@ -12,11 +12,16 @@ const SignUp = () => {
   useEffect(() => {
     document.title = "Register - RAuto";
   });
+
+  useEffect(() => {
+    if (auth._id) {
+      navigate("/");
+    }
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   console.log("auth", auth);
-  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -38,23 +43,20 @@ const SignUp = () => {
   };
 
   const hanldeSubmit = async () => {
-    setLoading(true);
     try {
       dispatch(registerUser(user));
 
       toast.success(`Your account have been created ${user.username}`, {
         position: "top-center",
       });
-      if (auth?._id) {
+      if (auth._id) {
         navigate("/");
       }
     } catch (error) {
-      toast.error(`Failed: ${error.response.data}`, {
+      toast.error(auth.registerError, {
         position: "top-center",
       });
       console.log({ error: error.message });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -108,7 +110,11 @@ const SignUp = () => {
           className="font-bold p-2 rounded-lg w-1/2 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black"
           onClick={hanldeSubmit}
         >
-          {loading ? <ClipLoader size={23} /> : "Register"}
+          {auth.registerStatus === "pending" ? (
+            <ClipLoader size={23} />
+          ) : (
+            "Register"
+          )}
         </button>
         <p
           className="font-semibold text-sky-500 hover:text-red-500 hover:underline cursor-pointer"

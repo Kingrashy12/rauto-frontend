@@ -13,7 +13,8 @@ import { FcAdvertising } from "react-icons/fc";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { productdata } from "../../data/product";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout } from "../../state";
+import { logOutUser } from "../../hooks/authSlice";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
@@ -247,7 +248,12 @@ const Navbar = () => {
                   {auth?._id && (
                     <p
                       className="text-xl font-sofia text-white cursor-pointer hover:bg-neutral-500 p-2 border-b flex gap-1"
-                      onClick={() => dispatch(setLogout())}
+                      onClick={() => {
+                        dispatch(logOutUser(null));
+                        toast.warning("You logged out", {
+                          position: "top-center",
+                        });
+                      }}
                     >
                       <LogoutIcon />
                       Logout
