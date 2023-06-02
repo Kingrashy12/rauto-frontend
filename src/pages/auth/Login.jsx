@@ -45,8 +45,7 @@ const Login = () => {
       dispatch(loginUser(user));
     } catch (error) {
       console.log(auth.loginError);
-      toast.error(`Failed: ${auth.loginError}`, { position: "top-center" });
-    } finally {
+      toast.error(auth.loginError, { position: "top-center" });
     }
   };
 

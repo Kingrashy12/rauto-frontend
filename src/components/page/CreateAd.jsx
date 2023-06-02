@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,9 +13,8 @@ import { bodytype } from "../../data/productfilter";
 import { TextField } from "@mui/material";
 import { GoDiffAdded } from "react-icons/go";
 import { ClipLoader } from "react-spinners";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { setPosts } from "../../state";
+import { CreateListing } from "../../hooks/ListingSlice";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,13 +28,20 @@ const MenuProps = {
 };
 
 const CreateAd = () => {
-  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
+  const list = useSelector((state) => state.listing);
   const [personName, setPersonName] = useState("");
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false);
   console.log("values are", value);
   const imgRef = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (list.createStatus === "success") {
+      navigate("/");
+    }
+  });
 
   const handleChange = (event) => {
     setPersonName(event.target.value);
@@ -61,7 +67,7 @@ const CreateAd = () => {
     }
   };
   const [post, setPost] = useState({
-    userId: user?._id,
+    userId: auth._id,
     pname: "",
     pcolor: "",
     pPrice: "",
@@ -78,26 +84,10 @@ const CreateAd = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:4000/post/sell", {
-        userId: post.userId,
-        pname: post.pname,
-        pcolor: post.pcolor,
-        pPrice: post.pPrice,
-        pImage: post.pImage,
-        pdesc: post.pdesc,
-        pyear: post.pyear,
-        pbody: post.pbody,
-        pmake: post.pmake,
-        pcondition: post.pcondition,
-      });
-      toast.success("You've Placed your car on sell", {
-        position: "top-center",
-      });
-      dispatch(setPosts({ post }));
-      navigate("/");
+      dispatch(CreateListing(post));
     } catch (error) {
-      console.log({ error: error.message });
-      toast.error(`Sell order Failed Reason: ${error.message}`, {
+      console.log({ error: error.response.data });
+      toast.error(`Sell order Failed Reason: ${error.response.data}`, {
         position: "top-center",
       });
     } finally {
@@ -304,7 +294,11 @@ const CreateAd = () => {
             className="bg-black p-2 rounded-lg text-white border-2 border-black hover:text-black font-sofia font-bold hover:bg-transparent cursor-pointer items-center justify-center flex mt-2 w-full"
             onClick={handleSubmit}
           >
-            {loading ? <ClipLoader size={23} color="aqua" /> : "Sell My Car"}
+            {list.createStatus === "pending" ? (
+              <ClipLoader size={23} color="aqua" />
+            ) : (
+              "Sell My Car"
+            )}
           </button>
         </div>
       </div>
