@@ -87,14 +87,14 @@ const Login = () => {
         </button>
         <div className="flex gap-4">
           <p
-            className="font-semibold text-sky-500 hover:text-red-500 hover:underline cursor-pointer"
+            className="font-semibold text-sky-500 hover:text-red-500 hover:underline cursor-pointer max-[700px]:text-xs"
             onClick={() => navigate("/register")}
           >
             Dont have an account ? Sign up
           </p>
           <div className="h-7 border-r-neutral-600 border-r" />
           <p
-            className="font-semibold text-sky-500/ text-white hover:text-red-500 hover:underline cursor-pointer"
+            className="font-semibold text-sky-500/ text-white hover:text-red-500 hover:underline cursor-pointer max-[700px]:text-xs"
             onClick={() => navigate("/auth/reset")}
           >
             Forgotten password

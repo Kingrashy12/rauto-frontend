@@ -11,6 +11,7 @@ module.exports = {
       sofia: "'Sofia Sans Semi Condensed', sans-serif",
       poppin: "'Poppins', san serif",
       share: "'Share Tech Mono', monospace",
+      mono: "'Segoe UI', Tahoma, sans-serif",
     },
     extend: {
       borderWidth: {
@@ -35,6 +36,7 @@ module.exports = {
         37: "9.5rem",
         "95%": "95%",
         "10.5rem": "10.8rem",
+        46: "11.7rem",
       },
       spacing: {
         "center-drop": "37%",

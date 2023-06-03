@@ -6,8 +6,8 @@ import { FeedWrapper } from "../../styles/pages/PostFeed.styled";
 // import { toast } from "react-toastify";
 import { useGetAllListingsQuery } from "../../hooks/ListingApi";
 // import { useSelector } from "react-redux";
-import { Skeleton } from "@mui/material";
 import Error from "./Error";
+import { BounceLoader } from "react-spinners";
 
 const PostFeed = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,13 +17,18 @@ const PostFeed = () => {
   const body = searchParams.get("body");
   const year = searchParams.get("year");
   const { data, error, isLoading } = useGetAllListingsQuery();
-  const [Loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
+    // setLoading(true);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 3000);
+    if (isLoading) {
+      setLoading(true);
+    } else if (!isLoading) {
       setLoading(false);
-    }, 3000);
+    }
   }, []);
 
   useEffect(() => {
@@ -64,27 +69,24 @@ const PostFeed = () => {
   }
 
   return (
-    <FeedWrapper className="">
+    <FeedWrapper className="w-full">
       <RightSide
         setMake={setMake}
         setColor={setColor}
         setCond={setCond}
         setBody={setBody}
         setYear={setYear}
+        isLoading={Loading}
       />
       <div
-        className={`flex relative flex-wrap ${
-          error && "self-center text-center justify-center ml-16"
-        } gap-3 max-[350px]:mb-6 max-[700px]:justify-cente p-1 ml-1`}
+        className={`flex relative flex-wrap w-full gap-3 ${
+          error && "self-center text-center justify-center /ml-16"
+        } max-[350px]:mb-6 max-[700px]:justify-cente p-1 ml-1`}
       >
-        {" "}
         {isLoading ? (
-          <Skeleton
-            variant="rectangular"
-            width={`100%`}
-            height={`100%`}
-            className="mt-2"
-          />
+          <div className="flex gap-5 w-full relative items-center self-center justify-center">
+            <BounceLoader size={150} />
+          </div>
         ) : (
           <>
             {error && <Error />}

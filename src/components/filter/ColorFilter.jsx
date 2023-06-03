@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { Checkbox } from "@mui/material";
+import { Checkbox, Skeleton } from "@mui/material";
 
-const ColorFilter = ({ setColor, colors, setColors }) => {
+const ColorFilter = ({ setColor, colors, setColors, isLoading }) => {
   //   const [colors, setColors] = useState(false);
   const [checked, setChecked] = useState("");
   return (
     <div>
-      <p
-        className={`font-semibold font-poppin p-2 border-b border-b-neutral-300 flex justify-between cursor-pointer ${
-          colors && "shadow-2xl"
-        }`}
-        onClick={() => setColors(!colors)}
-      >
-        Color{" "}
-        {colors ? (
-          <MdKeyboardArrowUp size={30} />
-        ) : (
-          <MdKeyboardArrowDown size={30} />
-        )}
-      </p>
+      {isLoading ? (
+        <Skeleton variant="text" width={`100%`} height={`50px`} />
+      ) : (
+        <p
+          className={`font-semibold font-poppin p-2 border-b border-b-neutral-300 flex justify-between cursor-pointer ${
+            colors && "shadow-2xl"
+          }`}
+          onClick={() => setColors(!colors)}
+        >
+          Color{" "}
+          {colors ? (
+            <MdKeyboardArrowUp size={30} />
+          ) : (
+            <MdKeyboardArrowDown size={30} />
+          )}
+        </p>
+      )}
       {colors && (
         <div className="flex flex-col text-justify">
           <button

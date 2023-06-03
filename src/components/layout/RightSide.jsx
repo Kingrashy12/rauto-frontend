@@ -5,7 +5,14 @@ import BodyFilter from "../filter/BodyFilter";
 import YearFilter from "../filter/YearFilter";
 import ColorFilter from "../filter/ColorFilter";
 
-const RightSide = ({ setMake, setColor, setCond, setBody, setYear }) => {
+const RightSide = ({
+  setMake,
+  setColor,
+  setCond,
+  setBody,
+  setYear,
+  isLoading,
+}) => {
   const [colors, setColors] = useState(false);
 
   return (
@@ -15,16 +22,17 @@ const RightSide = ({ setMake, setColor, setCond, setBody, setYear }) => {
       } relative`}
     >
       <div className="flex flex-col mt-2">
-        <BrandFilter setCond={setCond} />
-        <MakeFilter setMake={setMake} />
-        <BodyFilter setBody={setBody} />
-        <YearFilter setYear={setYear} />
+        <BrandFilter setCond={setCond} isLoading={isLoading} />
+        <MakeFilter setMake={setMake} isLoading={isLoading} />
+        <BodyFilter setBody={setBody} isLoading={isLoading} />
+        <YearFilter setYear={setYear} isLoading={isLoading} />
         {/* ENDS */}
         <hr className="mt-5 text-neutral-300 w-full p-0 mb-3" />
         <ColorFilter
           setColor={setColor}
           colors={colors}
           setColors={setColors}
+          isLoading={isLoading}
         />
       </div>
     </div>

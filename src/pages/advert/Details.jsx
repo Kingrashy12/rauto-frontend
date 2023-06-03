@@ -23,22 +23,22 @@ const Details = () => {
 
   async function getListing() {
     const fetchList = await axios.get(`${BASE_URL}/listing/${id}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
+      // method: "GET",
+      // headers: { "Content-Type": "application/json" },
     });
     const response = await fetchList.data;
     setProduct(response);
-    console.log(product);
+    // console.log(product);
   }
 
   const pmake = product.pmake;
   async function getSimilarListing() {
     const fetchList = await axios.get(
-      `http://localhost:4000/listing/similar/${pmake}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
+      `${BASE_URL}/listing/similar/${pmake}`
+      // {
+      //   method: "GET",
+      //   headers: { "Content-Type": "application/json" },
+      // }
     );
     const response = await fetchList.data;
     setSimilar(response);
@@ -48,7 +48,7 @@ const Details = () => {
   useEffect(() => {
     getListing();
     getSimilarListing();
-    console.log(product);
+    // console.log(product);
   }, [product]);
 
   function Buy() {
@@ -72,7 +72,11 @@ const Details = () => {
   return (
     <StyledDetails className="mt-14 max-[800px]:mt-5">
       <div className="flex justify-evenly relative gap-16 max-[800px]:flex-col">
-        <ListingImg src={product?.pImage?.url} className="" alt="" />
+        <ListingImg
+          src={product?.pImage?.url}
+          className="rounded-lg cursor-pointer"
+          alt=""
+        />
         {product?.sold && (
           <div className="absolute bg-transparent text-white p-1 w-56 items-center text-center font-semibold border-dotted border-4 border-red-500">
             <p className="text-lg p-1 border-red-500 border-dotted border-4 text-red-500 font-semibold">
@@ -87,8 +91,8 @@ const Details = () => {
             </p>
           </div>
         )}
-        <div className="flex flex-col w-96 max-[800px]:p-3">
-          <h1 className="font-extrabold text-3xl font-sofia">
+        <div className="flex flex-col w-96 max-[800px]:p-3 max-[375px]:p-6 max-[350px]:w-full max-[350px]:p-4 max-[370px]:w-full">
+          <h1 className="font-extrabold text-3xl font-sofia max-[700px]:text-2xl">
             {product.pname}
           </h1>
           <h3 className="text-3xl font-sofia font-bold mb-1">
@@ -155,7 +159,7 @@ const Details = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col p-6 mt-2 max-[700px]:p-3">
+      <div className="flex relative flex-col p-6 mt-2 max-[700px]:p-2">
         <h2 className="text-3xl font-bold font-sofia max-[800px]:text-2xl max-[700px]:text-base">
           Similar {product.pmake?.toUpperCase()} Listing
         </h2>

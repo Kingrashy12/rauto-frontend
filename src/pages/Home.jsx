@@ -8,7 +8,7 @@ const Home = () => {
   });
   return (
     <StyledHome className="mt-5 ml-5 max-[1024px]:ml-0">
-      <div className="flex justify-between">
+      <div className="flex justify-between w-full">
         <PostFeed />
       </div>
     </StyledHome>

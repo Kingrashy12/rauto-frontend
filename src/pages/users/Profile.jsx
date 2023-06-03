@@ -12,13 +12,10 @@ const Profile = () => {
 
   const [u, setU] = useState([]);
   async function getUser() {
-    const fetchUser = await axios.get(
-      `http://localhost:4000/users/${username}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/josn" },
-      }
-    );
+    const fetchUser = await axios.get(`${BASE_URL}/users/${username}`, {
+      // method: "GET",
+      // headers: { "Content-Type": "application/josn" },
+    });
     const fetchedUser = await fetchUser.data;
     setU(fetchedUser);
     console.log(fetchedUser);
