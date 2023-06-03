@@ -30,6 +30,7 @@ export const CreateListing = createAsyncThunk(
       toast.success("You've Placed your car on sell", {
         position: "top-center",
       });
+      window.location = "/";
       return response.data;
     } catch (error) {
       console.log({ error: error.response.data });

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import { GT63S, STOI } from "../../asset";
-import { StyledDetails } from "../../styles/pages/Detailed.styled";
+import { ListingImg, StyledDetails } from "../../styles/pages/Detailed.styled";
 import { CreatedUser } from "../../components";
 import { toast } from "react-toastify";
 // import { useParams } from "react-router-dom";
 // import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { BASE_URL } from "../../hooks/api";
+import axios from "axios";
+import SimilarListing from "./SimilarListing";
 // import { BASE_URL } from "../../hooks/api";
 // import { useParams } from "react-router-dom";
 // import products from "../../product.json";
@@ -14,13 +18,38 @@ const Details = () => {
   const [sold, setSold] = useState(false);
   const [closed] = useState(false);
   const [product, setProduct] = useState({});
-  // const { slug } = useParams();
-  const p = useSelector((state) => state.listing.listings);
+  const [similar, setSimilar] = useState([]);
+  const { id } = useParams();
+
+  async function getListing() {
+    const fetchList = await axios.get(`${BASE_URL}/listing/${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const response = await fetchList.data;
+    setProduct(response);
+    console.log(product);
+  }
+
+  const pmake = product.pmake;
+  async function getSimilarListing() {
+    const fetchList = await axios.get(
+      `http://localhost:4000/listing/similar/${pmake}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const response = await fetchList.data;
+    setSimilar(response);
+    console.log("similar listing", similar);
+  }
 
   useEffect(() => {
-    setProduct(p);
+    getListing();
+    getSimilarListing();
     console.log(product);
-  }, [p, product]);
+  }, [product]);
 
   function Buy() {
     if (closed) {
@@ -41,24 +70,24 @@ const Details = () => {
   }
 
   return (
-    <StyledDetails className="mt-14">
-      <div className="flex justify-evenly relative gap-16">
-        <img src={product.pImage?.url} className="11/12" alt="" />
-        {product.sold && (
+    <StyledDetails className="mt-14 max-[800px]:mt-5">
+      <div className="flex justify-evenly relative gap-16 max-[800px]:flex-col">
+        <ListingImg src={product?.pImage?.url} className="" alt="" />
+        {product?.sold && (
           <div className="absolute bg-transparent text-white p-1 w-56 items-center text-center font-semibold border-dotted border-4 border-red-500">
             <p className="text-lg p-1 border-red-500 border-dotted border-4 text-red-500 font-semibold">
               Sold
             </p>
           </div>
         )}
-        {product.closed && (
+        {product?.closed && (
           <div className="absolute bg-transparent text-white p-1 w-56 items-center text-center font-semibold border-dotted border-4 border-blue-600">
             <p className="text-lg p-1 border-blue-600 border-dotted border-4 text-blue-600 font-semibold">
               Closed
             </p>
           </div>
         )}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-96 max-[800px]:p-3">
           <h1 className="font-extrabold text-3xl font-sofia">
             {product.pname}
           </h1>
@@ -125,6 +154,12 @@ const Details = () => {
             username={product.username}
           />
         </div>
+      </div>
+      <div className="flex flex-col p-6 mt-2 max-[700px]:p-3">
+        <h2 className="text-3xl font-bold font-sofia max-[800px]:text-2xl max-[700px]:text-base">
+          Similar {product.pmake?.toUpperCase()} Listing
+        </h2>
+        <SimilarListing similar={similar} />
       </div>
     </StyledDetails>
   );

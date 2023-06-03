@@ -35,7 +35,7 @@ function App() {
             <Route path="/register" element={<SignUp />} />
             <Route path="/auth/reset" element={<Auth />} />
             <Route path="/sell-your-car" element={<SellPage />} />
-            <Route path="/ad/:slug" element={<Details />} />
+            <Route path="/ad/:id" element={<Details />} />
             <Route path="/user/:username" element={<ProfileCard />} />
             <Route path="/notfound" element={<NotFound />} />
           </Routes>

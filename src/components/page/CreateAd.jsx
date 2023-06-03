@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -36,12 +36,6 @@ const CreateAd = () => {
   console.log("values are", value);
   const imgRef = useRef();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (list.createStatus === "success") {
-      navigate("/");
-    }
-  });
 
   const handleChange = (event) => {
     setPersonName(event.target.value);

@@ -8,7 +8,10 @@ const Error = () => {
         An error occured
       </p>
       <div className="flex gap-20 relative max-[700px]:flex-col max-[700px]:w-full">
-        <button className="bg-blue-500 text-white font-semibold p-1 w-20 outline-none border-none rounded-base text-sm cursor-pointer hover:opacity-70">
+        <button
+          className="bg-blue-500 text-white font-semibold p-1 w-20 outline-none border-none rounded-base text-sm cursor-pointer hover:opacity-70"
+          onClick={() => window.location.reload()}
+        >
           Reload
         </button>
         <button

@@ -31,11 +31,11 @@ const PostItem = ({ product, loading }) => {
         />
       ) : (
         <img
-          src={product?.pImage}
+          src={product?.pImage?.url}
           alt="Listing"
           className="w-full rounded-t-lg h-48 max-[700px]:rounded-t-md max-[700px]:h-44"
-          style={{ objectFit: "cover" }}
-          onClick={() => navigate(`/ad/${product?.slug}`)}
+          // style={{ objectFit: "cover" }}
+          onClick={() => navigate(`/ad/${product?._id}`)}
         />
       )}
       <div className="flex flex-col p-3 relative max-[700px]:p-2">

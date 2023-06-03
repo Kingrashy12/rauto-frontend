@@ -5,18 +5,15 @@ import React, { useRef, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { Male } from "../../asset";
-import { CoverModal, ImageModal } from "../../libs";
+import { ImageModal } from "../../libs";
+import { BASE_URL } from "../../hooks/api";
 
 const EditForm = ({ u, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState("");
-  const [cphoto, setCPhoto] = useState("");
   const [gallery, setGallery] = useState(false);
-  const [cgallery, setCGallery] = useState(false);
   const [profile, setProfile] = useState("");
-  const [cover, setCover] = useState("");
   const imgRef = useRef();
-  const coverRef = useRef();
   const userId = u._id;
   const [user, setUser] = useState({
     name: u.name,
@@ -29,13 +26,12 @@ const EditForm = ({ u, setOpen }) => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await axios.patch(`http://localhost:4000/users/${userId}/edit`, {
+      await axios.patch(`${BASE_URL}/users/${userId}/edit`, {
         userId: userId,
         name: user.name,
         email: user.email,
         username: user.username,
         userProfile: profile,
-        userCover: cover,
       });
       toast.success(`Info Updated`, { position: "top-center" });
       setOpen(false);
@@ -68,72 +64,31 @@ const EditForm = ({ u, setOpen }) => {
     }
   };
 
-  const onCoverImageChange = (e) => {
-    const cfile = e.target.files[0];
-    console.log(cfile);
-    if (cfile) {
-      setCGallery(true);
-    }
-    TransformCoverFile(cfile);
-  };
-
-  const TransformCoverFile = (cfile) => {
-    const reader = new FileReader();
-    if (cfile) {
-      reader.readAsDataURL(cfile);
-      reader.onloadend = () => {
-        setCPhoto(reader.result);
-      };
-    } else {
-      setCPhoto("");
-    }
-  };
   return (
     <>
       <div className="flex flex-col gap-4 p-3 w-full relative">
         <div className="flex flex-col mb-9">
-          {cover ? (
-            <img
-              src={cover}
-              alt="Male"
-              className="w-full h-44 cursor-pointer hover:opacity-80 hover:fill-black"
-              style={{ objectFit: "cover" }}
-              onClick={() => {
-                coverRef.current.click();
-                setCGallery(true);
-              }}
-            />
-          ) : (
-            <img
-              src={u?.userCover || Male || profile}
-              alt="Male"
-              className="w-full h-44 cursor-pointer hover:opacity-80 hover:fill-black"
-              style={{ objectFit: "cover" }}
-              onClick={() => {
-                coverRef.current.click();
-                setCGallery(true);
-              }}
-            />
-          )}
           {profile ? (
             <img
               src={profile}
               alt="Male"
+              className="w-full h-44 cursor-pointer hover:opacity-80 hover:fill-black"
+              style={{ objectFit: "cover" }}
               onClick={() => {
                 imgRef.current.click();
                 setGallery(true);
               }}
-              className="w-28 rounded-full border-4 border-black absolute top-28 left-9 h-28 cursor-pointer hover:opacity-80"
             />
           ) : (
             <img
-              src={u?.userProfile || Male}
+              src={u?.userProfile || Male || profile}
               alt="Male"
+              className="w-full h-44 cursor-pointer hover:opacity-80 hover:fill-black"
+              style={{ objectFit: "cover" }}
               onClick={() => {
                 imgRef.current.click();
                 setGallery(true);
               }}
-              className="w-28 rounded-full border-4 border-black absolute top-28 left-9 h-28 cursor-pointer hover:opacity-80"
             />
           )}
           <div className="hidden">
@@ -142,12 +97,6 @@ const EditForm = ({ u, setOpen }) => {
               //   accept="Image/"
               ref={imgRef}
               onChange={onImageChange}
-            />
-            <input
-              type="file"
-              //   accept="Image/"
-              ref={coverRef}
-              onChange={onCoverImageChange}
             />
           </div>
         </div>
@@ -191,17 +140,6 @@ const EditForm = ({ u, setOpen }) => {
               photo={photo}
               setPhoto={setPhoto}
               setProfile={setProfile}
-            />
-          </div>
-        </Backdrop>
-      )}
-      {cgallery && (
-        <Backdrop open={cgallery} className="relative">
-          <div className="fixed w-full h-full flex items-center justify-center z-z-70">
-            <CoverModal
-              setCGallery={setCGallery}
-              cphoto={cphoto}
-              setCover={setCover}
             />
           </div>
         </Backdrop>

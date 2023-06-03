@@ -11,10 +11,10 @@ import { navtype, navtypeI } from "../../data/nav";
 import { FaUserCircle } from "react-icons/fa";
 import { FcAdvertising } from "react-icons/fc";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { productdata } from "../../data/product";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../../hooks/authSlice";
 import { toast } from "react-toastify";
+import { useGetAllListingsQuery } from "../../hooks/ListingApi";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
@@ -22,6 +22,7 @@ const Navbar = () => {
   const [view, setView] = useState(false);
   const [value, setValue] = useState("");
   const [iscliked, setIsCliked] = useState(false);
+  const { data } = useGetAllListingsQuery();
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -87,10 +88,10 @@ const Navbar = () => {
             value ? "flex" : "hidden"
           }   flex-col absolute shadow w-96 top-18 max-[700px]:top-10.5 max-[700px]:left-32 max-[700px]:w-56 max-[350px]:w-48 max-[350px]:left-28 left-52 bg-white rounded-b-lg p-1`}
         >
-          {productdata
-            .filter((data) => {
+          {data
+            ?.filter((data) => {
               const searchTerm = value.toLowerCase();
-              const pname = data.name.toLowerCase();
+              const pname = data.pname.toLowerCase();
 
               return (
                 searchTerm &&
@@ -105,16 +106,16 @@ const Navbar = () => {
                 onClick={() => {
                   setIsCliked(true);
                   setValue("");
-                  navigate(`/ad/${data.slug}`);
+                  navigate(`/ad/${data._id}`);
                 }}
               >
                 <p
                   onClick={() => {
-                    onSearch(data.name);
+                    onSearch(data.pname);
                   }}
                   className="font-semibold p-3 rounded-lg hover:bg-neutral-300 cursor-pointer"
                 >
-                  {data.name}
+                  {data.pname}
                 </p>
               </div>
             ))}
