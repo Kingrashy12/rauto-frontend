@@ -5,4 +5,5 @@ export { default as Auth } from "./auth/Auth";
 export { default as SellPage } from "./Sell";
 export { default as Details } from "./advert/Details";
 export { default as ProfileCard } from "./users/Profile";
+export { default as ProfileCardWidget } from "./users/ProfileCard";
 export { default as NotFound } from "./NotFound";

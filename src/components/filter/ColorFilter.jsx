@@ -118,6 +118,36 @@ const ColorFilter = ({ setColor, colors, setColors, isLoading }) => {
             <div className="bg-white shadow shadow-black p rounded-full w-3 h-3"></div>
             <p className="font-semibold">White</p>
           </button>
+          <button
+            className="flex gap-2 items-center"
+            onClick={() => setColor("purple")}
+          >
+            <Checkbox
+              // checked={checked}
+              onChange={() => {
+                setChecked("red");
+                console.log(checked);
+              }}
+              value={!checked}
+            />
+            <div className="shadow bg-purple-600 shadow-black p rounded-full w-3 h-3"></div>
+            <p className="font-semibold">Purple</p>
+          </button>
+          <button
+            className="flex gap-2 items-center"
+            onClick={() => setColor("unknown")}
+          >
+            <Checkbox
+              // checked={checked}
+              onChange={() => {
+                setChecked("red");
+                console.log(checked);
+              }}
+              value={!checked}
+            />
+            <div className="shadow bg-slate-200 shadow-black p rounded-full w-3 h-3"></div>
+            <p className="font-semibold">Unknown</p>
+          </button>
         </div>
       )}
     </div>

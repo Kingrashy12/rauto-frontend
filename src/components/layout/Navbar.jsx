@@ -106,7 +106,7 @@ const Navbar = () => {
                 onClick={() => {
                   setIsCliked(true);
                   setValue("");
-                  navigate(`/ad/${data._id}`);
+                  navigate(`/listing/${data._id}`);
                 }}
               >
                 <p

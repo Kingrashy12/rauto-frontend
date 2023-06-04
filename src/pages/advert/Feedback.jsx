@@ -12,9 +12,9 @@ const Feedback = ({ open, setOpen, item }) => {
   }, [item?.comment?.length]);
   return (
     <div
-      className={`relative w-1/3 max-[800px]:w-10/12 max-[700px]:w-11/12 ${
+      className={`relative w-1/3 max-[800px]:w-10/12 bg-white max-[700px]:w-11/12 ${
         empty ? "" : "overflow-y-scroll"
-      } h-80%`}
+      } h-80% z-z-70`}
     >
       <div className="flex justify-between fixed bg-white z-z-70 shadow-md shadow-black w-1/3 max-[800px]:w-10/12 max-[700px]:w-11/12 rounded-t-lg p-4">
         <p className="text-xl font-sofia">Feedbacks on {item?.pname}</p>
@@ -34,7 +34,7 @@ const Feedback = ({ open, setOpen, item }) => {
           </p>
         </div>
       ) : (
-        <div className="flex flex-col relative bg-white shadow h-full shadow-black mt-3 rounded-lg p-9 w-full z-50">
+        <div className="flex flex-col relative bg-white h-auto mt-4 p-9 w-full z-50">
           <hr className="mt-2 mb-2" />
           <div className="">
             {item?.comment?.map((c) => (

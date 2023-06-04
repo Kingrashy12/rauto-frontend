@@ -7,7 +7,8 @@ import {
   Home,
   Login,
   NotFound,
-  ProfileCard,
+  // ProfileCard,
+  ProfileCardWidget,
   SellPage,
   SignUp,
 } from "./pages";
@@ -35,8 +36,8 @@ function App() {
             <Route path="/register" element={<SignUp />} />
             <Route path="/auth/reset" element={<Auth />} />
             <Route path="/sell-your-car" element={<SellPage />} />
-            <Route path="/ad/:id" element={<Details />} />
-            <Route path="/user/:username" element={<ProfileCard />} />
+            <Route path="/listing/:id" element={<Details />} />
+            <Route path="/user/:username" element={<ProfileCardWidget />} />
             <Route path="/notfound" element={<NotFound />} />
           </Routes>
           <ScrollTop />

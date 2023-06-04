@@ -193,6 +193,16 @@ export const colorfilter = [
     value: "yellow",
     yellow: true,
   },
+  {
+    label: "Purple",
+    value: "purple",
+    yellow: true,
+  },
+  {
+    label: "Unknown",
+    value: "unknown",
+    yellow: true,
+  },
 ];
 
 export const carcondition = [

@@ -12,10 +12,7 @@ const Profile = () => {
 
   const [u, setU] = useState([]);
   async function getUser() {
-    const fetchUser = await axios.get(`${BASE_URL}/users/${username}`, {
-      // method: "GET",
-      // headers: { "Content-Type": "application/josn" },
-    });
+    const fetchUser = await axios.get(`${BASE_URL}/users/${username}`);
     const fetchedUser = await fetchUser.data;
     setU(fetchedUser);
     console.log(fetchedUser);
@@ -33,7 +30,7 @@ const Profile = () => {
         <UserHero user={u} />
         <UserBio u={u} profileId={profileId} />
         <hr className="text-slate-700 mt-2 mb-2" />
-        <UserLinks user={auth} />
+        <UserLinks user={profileId} u={u} />
       </div>
     </div>
   );
