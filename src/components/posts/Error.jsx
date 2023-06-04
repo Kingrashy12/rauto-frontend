@@ -9,10 +9,10 @@ const Error = () => {
         An error occured
       </p>
       <div className="flex flex-col">
-        <p className="text-xl text-justify font-mono font-semibold">
+        <p className="text-xl text-justify font-sofia font-semibold">
           Connection to server failed
         </p>
-        <p className="text-sm flex text-justify font-mono gap-1 font-semibold">
+        <p className="text-sm flex text-justify font-sofia gap-1 font-semibold">
           <span className="font-bold text-neutral-800">rauto.vercel.app</span>
           <span className="font-medium text-neutral-500">
             unexpectedly closed the connection.
@@ -34,7 +34,7 @@ const Error = () => {
         </button>
       </div>
       {view && (
-        <div className="flex flex-col font-mono text-justify max-[700px]:p-2">
+        <div className="flex flex-col font-sofia text-justify max-[700px]:p-2">
           <p className="font-bold text-lg">Check your internet connection</p>
           <span className="text-sm text-neutral-500 font-normal">
             Check any cables and reboot any routers, modems, or other network
