@@ -26,8 +26,9 @@ const PostFeed = () => {
     // }, 3000);
     if (isLoading) {
       setLoading(true);
-    } else if (!isLoading) {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 5000);
     }
   }, []);
 
@@ -76,7 +77,7 @@ const PostFeed = () => {
         setCond={setCond}
         setBody={setBody}
         setYear={setYear}
-        isLoading={Loading}
+        isLoading={isLoading}
       />
       <div
         className={`flex relative flex-wrap w-full gap-3 ${
@@ -101,7 +102,7 @@ const PostFeed = () => {
               )
               .map((product, index) => (
                 <div className="max-[350px]:mb-7" key={index}>
-                  <PostItem product={product} loading={Loading} />
+                  <PostItem product={product} loading={isLoading} />
                 </div>
               ))}{" "}
           </>

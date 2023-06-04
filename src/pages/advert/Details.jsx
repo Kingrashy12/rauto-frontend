@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../hooks/api";
 import axios from "axios";
 import SimilarListing from "./SimilarListing";
+import { Backdrop } from "@mui/material";
+import Feedback from "./Feedback";
 // import { BASE_URL } from "../../hooks/api";
 // import { useParams } from "react-router-dom";
 // import products from "../../product.json";
@@ -19,6 +21,7 @@ const Details = () => {
   const [closed] = useState(false);
   const [product, setProduct] = useState({});
   const [similar, setSimilar] = useState([]);
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
 
   async function getListing() {
@@ -33,13 +36,10 @@ const Details = () => {
 
   const pmake = product.pmake;
   async function getSimilarListing() {
-    const fetchList = await axios.get(
-      `${BASE_URL}/listing/similar/${pmake}`
-      // {
-      //   method: "GET",
-      //   headers: { "Content-Type": "application/json" },
-      // }
-    );
+    const fetchList = await axios.get(`${BASE_URL}/listing/similar/${pmake}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
     const response = await fetchList.data;
     setSimilar(response);
     console.log("similar listing", similar);
@@ -157,6 +157,19 @@ const Details = () => {
             userAd={product.ad || null}
             username={product.username}
           />
+          <button
+            className="bg-black text-white p-2 rounded-lg mt-2 cursor-pointer hover:opacity-70"
+            onClick={() => setOpen(true)}
+          >
+            {product?.comment?.length} FeedBack
+          </button>
+          {open && (
+            <Backdrop open={open} className="relative">
+              <div className="fixed w-full h-full flex items-center justify-center z-z-70">
+                <Feedback open={open} setOpen={setOpen} item={product} />
+              </div>
+            </Backdrop>
+          )}
         </div>
       </div>
       <div className="flex relative flex-col p-6 mt-2 max-[700px]:p-2">
