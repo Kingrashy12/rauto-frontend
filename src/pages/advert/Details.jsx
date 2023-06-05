@@ -24,6 +24,7 @@ const Details = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [sLoading, setSLoading] = useState(false);
 
   function add() {
     setSaved(!saved);
@@ -50,14 +51,22 @@ const Details = () => {
 
   const pmake = product.pmake;
   async function getSimilarListing() {
-    const fetchList = await axios.get(`${BASE_URL}/listing/similar/${pmake}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-    const response = await fetchList.data;
-    setSimilar(response);
-    console.log("similar listing", similar);
+    setSLoading(true);
+    try {
+      const fetchList = await axios.get(`${BASE_URL}/listing/similar/${pmake}`);
+      const response = await fetchList.data;
+      setSimilar(response);
+      console.log("similar listing", similar);
+    } catch (error) {
+      console.log(error.response.data);
+    } finally {
+      setSLoading(false);
+    }
   }
+
+  useEffect(() => {
+    document.title = `${product.pname} - RAuto`;
+  });
 
   useEffect(() => {
     if (product.length === 0) {
@@ -282,11 +291,11 @@ const Details = () => {
             Similar {product.pmake?.toUpperCase()} Listing
           </h2>
         )}
-        {isLoading ? (
+        {/* {isLoading ? (
           <Skeleton variant="text" width={`100%`} height={`80px`} />
-        ) : (
-          <SimilarListing similar={similar} isLoading={isLoading} />
-        )}
+        ) : ( */}
+        <SimilarListing similar={similar} isLoading={sLoading} />
+        {/* )} */}
       </div>
     </StyledDetails>
   );
