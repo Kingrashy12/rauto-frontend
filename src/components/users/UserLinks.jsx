@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { BiMessageDetail } from "react-icons/bi";
 import { BsFillBellFill, BsFillBookmarksFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const UserLinks = ({ user, u }) => {
   const [setLoading] = useState(false);
+  const navigate = useNavigate();
   function handleDelete() {
     setLoading(true);
     setTimeout(() => {
@@ -18,7 +20,10 @@ const UserLinks = ({ user, u }) => {
       <hr className="z-0" />
       {u?._id === user ? (
         <>
-          <p className="text-lg font-semibold font-sofia flex gap-2 items-center hover:bg-slate-400 hover:text-white p-3 rounded-sm cursor-pointer">
+          <p
+            className="text-lg font-semibold font-sofia flex gap-2 items-center hover:bg-slate-400 hover:text-white p-3 rounded-sm cursor-pointer"
+            onClick={() => navigate(`/user/saved`)}
+          >
             <BsFillBookmarksFill size={25} /> Saved
           </p>
           <hr className="z-0" />

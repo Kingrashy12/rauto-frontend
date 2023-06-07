@@ -7,3 +7,4 @@ export { default as Details } from "./advert/Details";
 export { default as ProfileCard } from "./users/Profile";
 export { default as ProfileCardWidget } from "./users/ProfileCard";
 export { default as NotFound } from "./NotFound";
+export { default as UserSaved } from "./users/UserSaved";

@@ -7,11 +7,13 @@ import ListingReducer, { ListingsFetch } from "./hooks/ListingSlice";
 import { ListingApi } from "./hooks/ListingApi";
 import { Provider } from "react-redux";
 import authReducer, { loadUser } from "./hooks/authSlice";
+import saveReducer from "./hooks/saveSlice";
 
 const store = configureStore({
   reducer: {
     listing: ListingReducer,
     auth: authReducer,
+    saved: saveReducer,
     [ListingApi.reducerPath]: ListingApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

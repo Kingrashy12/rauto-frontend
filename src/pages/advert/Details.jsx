@@ -14,6 +14,7 @@ import { Backdrop, Skeleton } from "@mui/material";
 import Feedback from "./Feedback";
 import { Male } from "../../asset";
 import { BsBookmark, BsFillBookmarkCheckFill } from "react-icons/bs";
+import { removeItem, saveItem } from "../../hooks/saveSlice";
 
 const Details = () => {
   const [sold, setSold] = useState(false);
@@ -23,16 +24,23 @@ const Details = () => {
   const [open, setOpen] = useState(false);
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
+  // const isSaved = useSelector((state) => state.saved);
   const [saved, setSaved] = useState(false);
+  const [Unsaved, setUnSaved] = useState(false);
   const [sLoading, setSLoading] = useState(false);
+  const dispatch = useDispatch();
+  const sItem = useSelector((state) => state.saved.saved);
+
+  function del() {
+    setSaved(false);
+    toast.info(`You removed ${product?.pname}`);
+    dispatch(removeItem(product?._id));
+  }
 
   function add() {
-    setSaved(!saved);
-    if (saved) {
-      toast.info(`You Removed ${product.pname}`);
-    } else {
-      toast.success(`You Saved ${product.pname}`);
-    }
+    setSaved(true);
+    toast.success(`You saved ${product?.pname}`);
+    dispatch(saveItem(product));
   }
 
   async function getListing() {
@@ -49,7 +57,7 @@ const Details = () => {
     }
   }
 
-  const pmake = product.pmake;
+  const pmake = product?.pmake;
   async function getSimilarListing() {
     setSLoading(true);
     try {
@@ -65,7 +73,7 @@ const Details = () => {
   }
 
   useEffect(() => {
-    document.title = `${product.pname} - RAuto`;
+    document.title = `${product?.pname} - RAuto`;
   });
 
   useEffect(() => {
@@ -80,14 +88,16 @@ const Details = () => {
 
   function Buy() {
     if (closed) {
-      toast.info(`${product.pname} has been closed by user`, {
+      toast.info(`${product?.pname} has been closed by user`, {
         position: "top-center",
       });
     } else if (sold) {
-      toast.error(`${product.pname} has been Sold`, { position: "top-center" });
+      toast.error(`${product?.pname} has been Sold`, {
+        position: "top-center",
+      });
     } else {
       toast.success(
-        `You Bought ${product.pname} for ${product.pPrice?.toLocaleString()} `,
+        `You Bought ${product?.pname} for ${product.pPrice?.toLocaleString()} `,
         {
           position: "top-center",
         }
@@ -131,7 +141,7 @@ const Details = () => {
             <Skeleton variant="text" width={`200px`} height={`60px`} />
           ) : (
             <h1 className="font-extrabold text-3xl font-sofia max-[700px]:text-2xl">
-              {product.pname}
+              {product?.pname}
             </h1>
           )}
           <div className="flex justify-between relative">
@@ -139,25 +149,29 @@ const Details = () => {
               <Skeleton varaint="text" width={`100px`} height={`50px`} />
             ) : (
               <h3 className="text-3xl font-sofia font-bold mb-1">
-                &#8358; {product.pPrice?.toLocaleString()}
+                &#8358; {product?.pPrice?.toLocaleString()}
               </h3>
             )}
             {isLoading ? (
               <Skeleton varaint="text" width={`80px`} height={`50px`} />
             ) : (
-              <p onClick={add}>
+              <>
                 {saved ? (
-                  <BsFillBookmarkCheckFill
-                    size={35}
-                    className="bg-white p-2 rounded-lg absolute  cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1"
-                  />
+                  <p onClick={del}>
+                    <BsFillBookmarkCheckFill
+                      size={35}
+                      className="bg-white p-2 rounded-lg absolute  cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1"
+                    />
+                  </p>
                 ) : (
-                  <BsBookmark
-                    size={35}
-                    className="bg-white p-2 rounded-lg absolute cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1"
-                  />
+                  <p onClick={add}>
+                    <BsBookmark
+                      size={35}
+                      className="bg-white p-2 rounded-lg absolute cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1"
+                    />
+                  </p>
                 )}
-              </p>
+              </>
             )}
           </div>
           <hr className="mb-2 text-gray-600" />
@@ -203,28 +217,28 @@ const Details = () => {
                 <Skeleton variant="text" width={`80px`} height={`40px`} />
               ) : (
                 <span className="font-sofia text-black bg-slate-200 p-xs-s mb-3 text-sm rounded-sm">
-                  {product.pcolor}{" "}
+                  {product?.pcolor}{" "}
                 </span>
               )}
               {isLoading ? (
                 <Skeleton variant="text" width={`80px`} height={`40px`} />
               ) : (
                 <span className="font-sofia text-black bg-slate-200 p-xs-s mb-3 text-sm rounded-sm">
-                  {product.pmake?.toUpperCase()}{" "}
+                  {product?.pmake?.toUpperCase()}{" "}
                 </span>
               )}
               {isLoading ? (
                 <Skeleton variant="text" width={`80px`} height={`40px`} />
               ) : (
                 <span className="font-sofia text-black bg-slate-200 p-xs-s mb-3 text-sm rounded-sm">
-                  {product.pbody}
+                  {product?.pbody}
                 </span>
               )}
               {isLoading ? (
                 <Skeleton variant="text" width={`80px`} height={`40px`} />
               ) : (
                 <span className="font-sofia text-black bg-slate-200 p-xs-s mb-3 text-sm rounded-sm">
-                  {product.pyear}
+                  {product?.pyear}
                 </span>
               )}
             </div>
@@ -241,7 +255,7 @@ const Details = () => {
             <Skeleton variant="text" width={`100%`} height={`80px`} />
           ) : (
             <p className="text-lg text-black font-semibold mb-1">
-              {product.pdesc}
+              {product?.pdesc}
             </p>
           )}
           <hr />
@@ -257,11 +271,11 @@ const Details = () => {
           )}
           <hr />
           <CreatedUser
-            user={product.name}
-            userProfile={product.userProfile || Male}
-            followers={product.followers || 0}
-            userAd={product.ad || null}
-            username={product.username}
+            user={product?.name}
+            userProfile={product?.userProfile || Male}
+            followers={product?.followers || 0}
+            userAd={product?.ad || null}
+            username={product?.username}
             isLoading={isLoading}
           />
           {isLoading ? (
@@ -288,7 +302,7 @@ const Details = () => {
           <Skeleton variant="text" width={`150px`} height={`50px`} />
         ) : (
           <h2 className="text-3xl font-bold font-sofia max-[800px]:text-2xl max-[700px]:text-base">
-            Similar {product.pmake?.toUpperCase()} Listing
+            Similar {product?.pmake?.toUpperCase()} Listing
           </h2>
         )}
         {/* {isLoading ? (

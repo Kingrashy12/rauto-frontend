@@ -13,3 +13,4 @@ export { default as UserLinks } from "./users/UserLinks";
 export { default as EditForm } from "./form/EditForm";
 export { default as FeedbackForm } from "./form/FeedBack";
 export { default as UserListing } from "./users/UserListing";
+export { default as UserSavedCard } from "./users/UserSavedCard";

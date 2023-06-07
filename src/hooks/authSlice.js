@@ -9,6 +9,8 @@ const initialState = {
   email: "",
   username: "",
   _id: "",
+  FetcStatus: null,
+  FetchError: null,
   userProfile: "",
   registerStatus: "",
   registerError: "",
@@ -67,6 +69,7 @@ const authSlice = createSlice({
         return {
           ...state,
           token,
+          savedItem: state.saved,
           name: user.name,
           email: user.email,
           _id: user._id,
@@ -78,6 +81,7 @@ const authSlice = createSlice({
     },
     logOutUser: (state, action) => {
       localStorage.removeItem("token");
+      localStorage.removeItem("saved");
 
       return {
         ...state,

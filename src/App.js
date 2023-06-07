@@ -11,6 +11,7 @@ import {
   ProfileCardWidget,
   SellPage,
   SignUp,
+  UserSaved,
 } from "./pages";
 import { BottomNav, Footer, Navbar, ScrollTop } from "./components";
 import { ThemeProvider } from "styled-components";
@@ -39,6 +40,7 @@ function App() {
             <Route path="/listing/:id" element={<Details />} />
             <Route path="/user/:username" element={<ProfileCardWidget />} />
             <Route path="/notfound" element={<NotFound />} />
+            <Route path="/user/saved" element={<UserSaved />} />
           </Routes>
           <ScrollTop />
           <Footer />

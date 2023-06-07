@@ -3,21 +3,27 @@ import { BsBookmark, BsFillBookmarkCheckFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeItem, saveItem } from "../../hooks/saveSlice";
 // import { useSelector } from "react-redux";
 
 const PostItem = ({ product, loading }) => {
   const [saved, setSaved] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const post = useSelector((state) => state.posts);
   // const make = <product className="ma"></product>
 
   function add() {
-    setSaved(!saved);
-    if (saved) {
-      toast.info(`You Removed ${product.pname}`);
-    } else {
-      toast.success(`You Saved ${product.pname}`);
-    }
+    setSaved(true);
+    toast.success(`You Saved ${product.pname}`);
+    dispatch(saveItem(product));
+  }
+
+  function del() {
+    setSaved(false);
+    // dispatch(removeItem());
+    toast.info(`You Removed ${product.pname}`);
   }
 
   return (
@@ -42,19 +48,23 @@ const PostItem = ({ product, loading }) => {
         {loading ? (
           <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
         ) : (
-          <p onClick={add}>
+          <>
             {saved ? (
-              <BsFillBookmarkCheckFill
-                // size={35}
-                className="bg-white text-4xl p-2 rounded-lg absolute -translate-y-8 cursor-pointer max-[700px]:translate-x-0 max-[700px]:text-2xl max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-y-44 translate-x-52"
-              />
+              <p onClick={del}>
+                <BsFillBookmarkCheckFill
+                  // size={35}
+                  className="bg-white text-4xl p-2 rounded-lg absolute -translate-y-8 cursor-pointer max-[700px]:translate-x-0 max-[700px]:text-2xl max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-y-44 translate-x-52"
+                />
+              </p>
             ) : (
-              <BsBookmark
-                // size={35}
-                className="bg-white text-4xl p-2 rounded-lg absolute -translate-y-8 cursor-pointer max-[700px]:translate-x-0 max-[700px]:text-2xl max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-y-44 translate-x-52"
-              />
+              <p onClick={add}>
+                <BsBookmark
+                  // size={35}
+                  className="bg-white text-4xl p-2 rounded-lg absolute -translate-y-8 cursor-pointer max-[700px]:translate-x-0 max-[700px]:text-2xl max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-y-44 translate-x-52"
+                />
+              </p>
             )}
-          </p>
+          </>
         )}
         <div className="flex gap-2 items-center max-[700px]:flex-col max-[700px]:items-start max-[350px]:gap-3">
           {loading ? (
