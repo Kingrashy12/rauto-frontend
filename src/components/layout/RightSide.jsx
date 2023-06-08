@@ -14,16 +14,22 @@ const RightSide = ({
   isLoading,
 }) => {
   const [colors, setColors] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <div
-      className={`max-[800px]:hidden bg-white border border-neutral-300 rounded-md p-2 w-96 ${
-        colors ? "h-10/12" : "h-96"
-      } relative`}
+      className={`max-[1024px]:w-10/12 fixed bg-white max-[800px]:w-11/12 border border-neutral-300 rounded-md p-2 z-z-70 w-96 overflow-y-auto ${
+        colors ? "h-10/12" : "h-1/2"
+      } relative ${open && "h-full"}`}
     >
-      <div className="flex flex-col mt-2">
+      <div className="flex flex-col mt-2 relative">
         <BrandFilter setCond={setCond} isLoading={isLoading} />
-        <MakeFilter setMake={setMake} isLoading={isLoading} />
+        <MakeFilter
+          setMake={setMake}
+          isLoading={isLoading}
+          setOpen={setOpen}
+          open={open}
+        />
         <BodyFilter setBody={setBody} isLoading={isLoading} />
         <YearFilter setYear={setYear} isLoading={isLoading} />
         {/* ENDS */}

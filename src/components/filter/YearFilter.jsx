@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { yearrange } from "../../data/productfilter";
-import { Skeleton } from "@mui/material";
+import { Checkbox, Skeleton } from "@mui/material";
 
 const YearFilter = ({ setYear, isLoading }) => {
   const [open, setOpen] = useState(false);
@@ -9,45 +9,46 @@ const YearFilter = ({ setYear, isLoading }) => {
   const [selected, setSelected] = useState("");
 
   return (
-    <div className="flex justify-between w-full mt-5 items-center relative">
+    <div>
       {isLoading ? (
-        <Skeleton variant="text" width={`60px`} height={`30px`} />
+        <Skeleton variant="text" width={`100%`} height={`50px`} />
       ) : (
-        <p className="text-black font-semibold">Year</p>
+        <p
+          className={`font-semibold font-sofia p-2 border-b border-b-neutral-300 flex justify-between cursor-pointer ${
+            open && "shadow-2xl"
+          }`}
+          onClick={() => setOpen(!open)}
+        >
+          {selected ? selected : "Year"}
+          {open ? (
+            <MdKeyboardArrowUp size={30} />
+          ) : (
+            <MdKeyboardArrowDown size={30} />
+          )}
+        </p>
       )}
-      {isLoading ? (
-        <Skeleton variant="text" width={`100px`} height={`50px`} />
-      ) : (
-        <div className="p-1 border border-neutral-400 rounded-md w-28 cursor-pointer font-semibold absolute z-10 bg-white shadow shadow-black top-0 mb-5 right-0">
-          <p
-            onClick={() => setOpen(!open)}
-            className="flex justify-between  font-sofia text-xs relative"
-          >
-            {clicked ? selected : "Year"}
-            {open ? (
-              <MdKeyboardArrowUp size={25} />
-            ) : (
-              <MdKeyboardArrowDown size={25} />
-            )}
-          </p>
-          {open && <hr />}
-          {yearrange.map((filter, index) => (
-            <p
-              className="cursor-pointer font-semibold relative"
-              key={index}
-              value={filter.value}
-              onClick={() => {
-                setYear(filter.value);
-                setSelected(filter.text);
-                setClicked(true);
-                setOpen(false);
-              }}
-            >
+      {yearrange.map((filter, index) => (
+        <button
+          className="flex gap-2 items-center font-sofia cursor-pointer font-semibold relative"
+          key={index}
+          value={filter.value}
+          onClick={() => {
+            setYear(filter.value);
+            setSelected(filter.text);
+            setClicked(true);
+            setSelected(filter.text);
+            setOpen(false);
+          }}
+        >
+          {open && (
+            <>
+              <Checkbox key={index} />
               {open && <p>{filter.text}</p>}
-            </p>
-          ))}
-        </div>
-      )}
+            </>
+          )}
+        </button>
+      ))}
+      {open && <hr />}
     </div>
   );
 };

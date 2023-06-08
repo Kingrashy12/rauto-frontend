@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { ErrorWrapper } from "../../styles/pages/Error.styled";
+import { useLocation } from "react-router-dom";
 
 const Error = () => {
   const [view, setView] = useState(false);
+  const path = useLocation();
   return (
     <ErrorWrapper className="flex flex-col gap-8 relative p-0 max-[700px]:w-full">
       <p className="text-center flex justify-center items-center text-red-500 font-sofia font-semibold text-2xl mt-5">

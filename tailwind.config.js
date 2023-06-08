@@ -52,6 +52,7 @@ module.exports = {
       },
       zIndex: {
         "z-70": "70",
+        "z-100": "100",
       },
       fontSize: {
         base2: "1rem",

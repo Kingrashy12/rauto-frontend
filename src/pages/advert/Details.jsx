@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import { GT63S, STOI } from "../../asset";
 import { ListingImg, StyledDetails } from "../../styles/pages/Detailed.styled";
 import { CreatedUser } from "../../components";
 import { toast } from "react-toastify";
-// import { useParams } from "react-router-dom";
-// import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../hooks/api";
@@ -57,7 +54,7 @@ const Details = () => {
     }
   }
 
-  const pmake = product?.pmake;
+  const pmake = product.pmake;
   async function getSimilarListing() {
     setSLoading(true);
     try {

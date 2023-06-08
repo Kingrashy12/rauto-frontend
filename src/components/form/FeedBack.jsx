@@ -4,6 +4,7 @@ import { Male } from "../../asset";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
+import { BASE_URL } from "../../hooks/api";
 
 const FeedBack = ({ itemId }) => {
   const auth = useSelector((state) => state.auth);
@@ -13,7 +14,7 @@ const FeedBack = ({ itemId }) => {
   const hanldeComment = async () => {
     setLoading(true);
     try {
-      await axios.post(`http://localhost:4000/feedback/add/${itemId}`, {
+      await axios.post(`${BASE_URL}/feedback/add/${itemId}`, {
         body: feedText,
         userId: auth._id,
         listingId: itemId,

@@ -27,7 +27,7 @@ const PostItem = ({ product, loading }) => {
   }
 
   return (
-    <div className="flex flex-col bg-slate-200 rounded-lg max-[700px]:rounded-md shadow-lg cursor-pointer hover:shadow-black w-72 max-[700px]:w-44 max-[450px]:w-48 max-[400px]:w-45.5 max-[370px]:w-10rem max-[375px]:w-10.5rem max-[330px]:w-36 h-80">
+    <div className="flex flex-col bg-slate-200 rounded-lg z-0 max-[700px]:rounded-md shadow-lg cursor-pointer hover:shadow-black w-72 max-[700px]:w-44 max-[450px]:w-48 max-[400px]:w-45.5 max-[370px]:w-10rem max-[375px]:w-10.5rem max-[330px]:w-36 h-80">
       {loading ? (
         <Skeleton
           variant="rectangular"

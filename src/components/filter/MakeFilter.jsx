@@ -1,52 +1,57 @@
 import React, { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { pfilter } from "../../data/productfilter";
-import { Skeleton } from "@mui/material";
+import { Checkbox, Skeleton } from "@mui/material";
 
-const MakeFilter = ({ setMake, isLoading }) => {
-  const [open, setOpen] = useState(false);
+const MakeFilter = ({ setMake, isLoading, setOpen, open }) => {
   const [selected, setSelected] = useState("");
+  const [checked, setChecked] = useState("");
   const [clicked, setClicked] = useState(false);
   return (
-    <div className="flex justify-between w-full mt-5 items-center relative">
+    <div>
       {isLoading ? (
-        <Skeleton variant="text" width={`60px`} height={`30px`} />
+        <Skeleton variant="text" width={`100%`} height={`50px`} />
       ) : (
-        <p className="text-black font-semibold">Make</p>
+        <p
+          className={`font-semibold font-sofia p-2 border-b border-b-neutral-300 flex justify-between cursor-pointer ${
+            open && "shadow-2xl"
+          }`}
+          onClick={() => setOpen(!open)}
+        >
+          {selected ? selected : "Make"}
+          {open ? (
+            <MdKeyboardArrowUp size={30} />
+          ) : (
+            <MdKeyboardArrowDown size={30} />
+          )}
+        </p>
       )}
-      {isLoading ? (
-        <Skeleton variant="text" width={`100px`} height={`50px`} />
-      ) : (
-        <div className="p-1 border border-neutral-400 rounded-md w-32 cursor-pointer font-semibold absolute z-40 bg-white shadow shadow-black top-0 right-0">
-          <p
-            onClick={() => setOpen(!open)}
-            className="flex justify-between  font-sofia text-xs relative"
-          >
-            {clicked ? selected : "Make"}
-            {open ? (
-              <MdKeyboardArrowUp size={25} />
-            ) : (
-              <MdKeyboardArrowDown size={25} />
-            )}
-          </p>
-          {open && <hr />}
-          {pfilter.map((filter, index) => (
-            <p
-              className="cursor-pointer font-semibold relative"
-              key={index}
-              value={filter.value}
-              onClick={() => {
-                setMake(filter.value);
-                setSelected(filter.text);
-                setClicked(true);
-                setOpen(false);
-              }}
-            >
+      {pfilter.map((filter, index) => (
+        <button
+          key={index}
+          className="flex gap-2 items-center cursor-pointer font-sofia font-semibold relative"
+          onClick={() => {
+            setMake(filter.value);
+            setSelected(filter.text);
+            setClicked(true);
+            setSelected(filter.text);
+            setOpen(false);
+          }}
+        >
+          {open && (
+            <>
+              <Checkbox
+                key={index}
+                onClick={(e) => {
+                  setChecked(e.target.value);
+                }}
+              />
               {open && <p>{filter.text}</p>}
-            </p>
-          ))}
-        </div>
-      )}
+            </>
+          )}
+        </button>
+      ))}
+      {open && <hr />}
     </div>
   );
 };
