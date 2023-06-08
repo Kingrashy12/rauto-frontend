@@ -21,29 +21,34 @@ const PostFeed = ({ filter, setFilter }) => {
   const body = searchParams.get("body");
   const year = searchParams.get("year");
 
-  // const { data, error, isLoading } = useGetAllListingsQuery();
+  const { data, error, isLoading } = useGetAllListingsQuery();
   const [Loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(false);
+  // const [data, setData] = useState([]);
+  // const [error, setError] = useState(false);
 
-  async function getListings() {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${BASE_URL}/listing`);
-      const fetched = await response?.data;
-      setData(fetched);
-      console.log("data:", data);
-    } catch (error) {
-      console.log({ error: error.message });
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }
+  // async function getListings() {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/listing`);
+  //     const fetched = await response?.data;
+  //     setData(fetched);
+  //     console.log("data:", data);
+  //   } catch (error) {
+  //     console.log({ error: error.message });
+  //     setError(true);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
 
   useEffect(() => {
     getListings();
+    if (isLoading) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
