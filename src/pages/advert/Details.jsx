@@ -174,14 +174,14 @@ const Details = () => {
                   <p onClick={() => del(i)}>
                     <BsFillBookmarkCheckFill
                       size={35}
-                      className="bg-white p-2 rounded-lg absolute  cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1"
+                      className="bg-white p-2 rounded-lg absolute  cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-x-8"
                     />
                   </p>
                 ) : (
                   <p onClick={add}>
                     <BsBookmark
                       size={35}
-                      className="bg-white p-2 rounded-lg absolute cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1"
+                      className="bg-white p-2 rounded-lg absolute cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-x-8"
                     />
                   </p>
                 )}
