@@ -26,8 +26,9 @@ const Details = () => {
   const [Unsaved, setUnSaved] = useState(false);
   const [sLoading, setSLoading] = useState(false);
   const dispatch = useDispatch();
-  const sItem = useSelector((state) => state.saved.saved);
   const auth = useSelector((state) => state.auth);
+  const it = useSelector((state) => state.saved.savedItems);
+  const i = it.find((item) => item._id === product._id);
 
   function feed() {
     if (!auth._id) {
@@ -37,16 +38,20 @@ const Details = () => {
     }
   }
 
-  function del() {
-    setSaved(false);
-    toast.info(`You removed ${product?.pname}`);
-    dispatch(removeItem(product?._id));
+  function del(i) {
+    if (!auth._id) {
+      navigate("/login");
+    } else {
+      dispatch(removeItem(i));
+    }
   }
 
   function add() {
-    setSaved(true);
-    toast.success(`You saved ${product?.pname}`);
-    dispatch(saveItem(product));
+    if (!auth._id) {
+      navigate("/login");
+    } else {
+      dispatch(saveItem(product));
+    }
   }
 
   const getListing = useCallback(async () => {
@@ -165,8 +170,8 @@ const Details = () => {
               <Skeleton varaint="text" width={`80px`} height={`50px`} />
             ) : (
               <>
-                {saved ? (
-                  <p onClick={del}>
+                {i ? (
+                  <p onClick={() => del(i)}>
                     <BsFillBookmarkCheckFill
                       size={35}
                       className="bg-white p-2 rounded-lg absolute  cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1"
@@ -314,15 +319,12 @@ const Details = () => {
             Similar {product?.pmake?.toUpperCase()} Listing
           </h2>
         )}
-        {/* {isLoading ? (
-          <Skeleton variant="text" width={`100%`} height={`80px`} />
-        ) : ( */}
+
         <SimilarListing
           similar={similar}
           isLoading={sLoading}
           currentId={product._id}
         />
-        {/* )} */}
       </div>
     </StyledDetails>
   );

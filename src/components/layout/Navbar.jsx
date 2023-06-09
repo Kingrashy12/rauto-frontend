@@ -16,6 +16,7 @@ import { logOutUser } from "../../hooks/authSlice";
 import { toast } from "react-toastify";
 import { useGetAllListingsQuery } from "../../hooks/ListingApi";
 import { Avatar } from "../../libs";
+import { Badge } from "@mui/material";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
@@ -25,6 +26,7 @@ const Navbar = () => {
   const [iscliked, setIsCliked] = useState(false);
   const { data } = useGetAllListingsQuery();
   const auth = useSelector((state) => state.auth);
+  const saved = useSelector((state) => state.saved.savedItems);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const xl = "1440px";
@@ -203,11 +205,13 @@ const Navbar = () => {
               className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"
               onClick={OpenChat}
             />
-            <BsFillBookmarksFill
-              size={40}
-              className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"
-              onClick={OpenChat}
-            />
+            <Badge badgeContent={saved.length} color="info">
+              <BsFillBookmarksFill
+                size={40}
+                className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"
+                onClick={() => navigate("/user/saved")}
+              />
+            </Badge>
             <div>
               {auth?._id ? (
                 <Avatar
