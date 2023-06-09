@@ -46,8 +46,9 @@ const PostFeed = ({ filter, setFilter }) => {
     // getListings();
     if (isLoading) {
       setLoading(true);
-    } else {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     }
   }, []);
 
@@ -117,7 +118,7 @@ const PostFeed = ({ filter, setFilter }) => {
         } max-[350px]:mb-6 max-[700px]:justify-cente p-1 ml-1`}
       >
         {/* {empty? <NotAvailable data={see?.pmake} />} */}
-        {Loading ? (
+        {isLoading ? (
           <div className="flex gap-5 w-full relative items-center self-center justify-center">
             <BounceLoader size={150} />
           </div>

@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../../hooks/authSlice";
 import { toast } from "react-toastify";
 import { useGetAllListingsQuery } from "../../hooks/ListingApi";
+import { Avatar } from "../../libs";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
@@ -207,48 +208,40 @@ const Navbar = () => {
               className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"
               onClick={OpenChat}
             />
-            <div
-              className={`flex bg-slate-800 p-1 ${
-                view ? "rounded-t-md" : "rounded-md"
-              }`}
-            >
-              <p
-                className={`text-white font-semibold ${
-                  auth?._id && "w-auto"
-                } font-sofia text-lg flex justify-between gap-1 items-center cursor-pointer`}
-                onClick={() => setView(!view)}
-              >
-                {auth?._id ? auth.name : ""}
-                {view ? (
-                  <IoMdArrowDropup size={30} />
-                ) : (
-                  <IoMdArrowDropdown size={30} />
-                )}
-              </p>
+            <div>
+              {auth?._id ? (
+                <Avatar
+                  user={auth}
+                  isNav
+                  hasBorder
+                  onClick={() => setView(!view)}
+                />
+              ) : (
+                ""
+              )}
+
               {view && (
                 <div
-                  className={`flex flex-col bg-slate-800 rounded-b-lg p-2 absolute ${
-                    auth?._id && "w-44"
-                  } top-3.5 right-9 shadow-2xl shadow-slate-400`}
+                  className={`flex flex-col bg-white rounded-lg p-1 w-44 absolute top-3.5 right-6 shadow-md shadow-black`}
                 >
                   {auth?._id && (
                     <>
                       <p
-                        className="text-xl font-sofia text-white cursor-pointer hover:bg-neutral-500 p-2 border-b flex gap-1"
+                        className="text-base font-sofia text-black cursor-pointer hover:bg-slate-100 p-2 border-b flex gap-1"
                         onClick={() => navigate(`/user/${auth?.username}`)}
                       >
-                        <FaUserCircle size={25} />
+                        <FaUserCircle size={20} />
                         Profile
                       </p>
-                      <p className="text-xl font-sofia text-white cursor-pointer hover:bg-neutral-500 p-2 border-b flex gap-1">
-                        <FcAdvertising size={25} />
+                      <p className="text-base font-sofia text-black cursor-pointer hover:bg-slate-100 p-2 border-b flex gap-1">
+                        <FcAdvertising size={20} />
                         My Listing
                       </p>
                     </>
                   )}
                   {auth?._id && (
                     <p
-                      className="text-xl font-sofia text-white cursor-pointer hover:bg-neutral-500 p-2 border-b flex gap-1"
+                      className="text-base font-sofia text-black cursor-pointer hover:bg-slate-100 p-2 border-b flex gap-1"
                       onClick={() => {
                         dispatch(logOutUser(null));
                         toast.warning("You logged out", {

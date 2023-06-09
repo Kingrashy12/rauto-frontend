@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ListingImg, StyledDetails } from "../../styles/pages/Detailed.styled";
 import { CreatedUser } from "../../components";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../../hooks/api";
 import axios from "axios";
 import SimilarListing from "./SimilarListing";
@@ -21,12 +21,21 @@ const Details = () => {
   const [open, setOpen] = useState(false);
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  // const isSaved = useSelector((state) => state.saved);
+  const navigate = useNavigate();
   const [saved, setSaved] = useState(false);
   const [Unsaved, setUnSaved] = useState(false);
   const [sLoading, setSLoading] = useState(false);
   const dispatch = useDispatch();
   const sItem = useSelector((state) => state.saved.saved);
+  const auth = useSelector((state) => state.auth);
+
+  function feed() {
+    if (!auth._id) {
+      navigate("/login");
+    } else {
+      setOpen(true);
+    }
+  }
 
   function del() {
     setSaved(false);
@@ -40,7 +49,7 @@ const Details = () => {
     dispatch(saveItem(product));
   }
 
-  async function getListing() {
+  const getListing = useCallback(async () => {
     setIsLoading(true);
     try {
       const fetchList = await axios.get(`${BASE_URL}/listing/${id}`);
@@ -52,14 +61,14 @@ const Details = () => {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
 
   const pmake = product.pmake;
-  async function getSimilarListing() {
+  const getSimilarListing = useCallback(async () => {
     setSLoading(true);
     try {
       const fetchList = await axios.get(`${BASE_URL}/listing/similar/${pmake}`);
-      const response = await fetchList.data;
+      const response = await fetchList?.data;
       setSimilar(response);
       console.log("similar listing", similar);
     } catch (error) {
@@ -67,7 +76,7 @@ const Details = () => {
     } finally {
       setSLoading(false);
     }
-  }
+  }, [pmake]);
 
   useEffect(() => {
     document.title = `${product?.pname} - RAuto`;
@@ -79,9 +88,12 @@ const Details = () => {
     } else {
       setIsLoading(false);
     }
-    getListing();
-    getSimilarListing();
   }, []);
+
+  useEffect(() => {
+    getSimilarListing();
+    getListing();
+  }, [getListing, getSimilarListing]);
 
   function Buy() {
     if (closed) {
@@ -280,7 +292,7 @@ const Details = () => {
           ) : (
             <button
               className="bg-black text-white p-2 rounded-lg mt-2 cursor-pointer hover:opacity-70"
-              onClick={() => setOpen(true)}
+              onClick={feed}
             >
               {product?.comment?.length} FeedBack
             </button>
@@ -305,7 +317,11 @@ const Details = () => {
         {/* {isLoading ? (
           <Skeleton variant="text" width={`100%`} height={`80px`} />
         ) : ( */}
-        <SimilarListing similar={similar} isLoading={sLoading} />
+        <SimilarListing
+          similar={similar}
+          isLoading={sLoading}
+          currentId={product._id}
+        />
         {/* )} */}
       </div>
     </StyledDetails>

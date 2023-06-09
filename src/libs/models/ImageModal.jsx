@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 
 const ImageModal = ({ photo, setGallery, setProfile }) => {
   return (
-    <div className="flex flex-col relative bg-white shadow shadow-black rounded-lg h-auto p-9 w-1/3 z-z-70">
+    <div className="flex flex-col relative bg-white shadow shadow-black rounded-lg h-auto p-9 w-1/3 max-[800px]:w-11/12 max-[700px]:p-5 z-z-70">
       <div className="flex justify-between">
         <p className="text-2xl text-black font-sofia">Edit Media</p>
         <IoMdClose
