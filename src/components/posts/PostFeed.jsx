@@ -43,7 +43,7 @@ const PostFeed = ({ filter, setFilter }) => {
   // }
 
   useEffect(() => {
-    getListings();
+    // getListings();
     if (isLoading) {
       setLoading(true);
     } else {
