@@ -62,7 +62,7 @@ const Navbar = () => {
     }
   });
   return (
-    <StyledNav className="bg-white sticky -top-1 shadow-black shadow-md">
+    <StyledNav className="bg-white fixed -top-1 shadow-black shadow-md">
       <div className="flex gap-3 items-center">
         <img
           src={RAuto}
