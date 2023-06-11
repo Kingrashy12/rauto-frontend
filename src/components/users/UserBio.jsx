@@ -27,7 +27,7 @@ const UserBio = ({ u, profileId }) => {
   async function followUser() {
     setFollowing(true);
     try {
-      await axios.patch(`http://localhost:4000/users/${username}/follow`, {
+      await axios.patch(`${BASE_URL}/users/${username}/follow`, {
         userId: profileId,
       });
       toast.success(`Action suceess`);
