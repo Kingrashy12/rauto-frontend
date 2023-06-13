@@ -183,6 +183,7 @@ const Navbar = () => {
                   <div className="flex flex-col text-white w-full" key={index}>
                     <a
                       href={type.link}
+                      onClick={() => setDrop(false)}
                       className="hover:bg-slate-700 cursor-pointer w-full p-2 rounded-md font-semibold"
                     >
                       {type.text}
@@ -199,6 +200,7 @@ const Navbar = () => {
                   <div className="flex flex-col text-white w-full" key={index}>
                     <a
                       href={type.link}
+                      onClick={() => setUsed(false)}
                       className="hover:bg-slate-700 cursor-pointer w-full p-2 rounded-md font-semibold"
                     >
                       {type.text}
