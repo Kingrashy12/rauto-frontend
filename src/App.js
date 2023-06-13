@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import {
@@ -11,6 +11,7 @@ import {
   ProfileCardWidget,
   SellPage,
   SignUp,
+  Type,
   UserSaved,
 } from "./pages";
 import { BottomNav, Footer, Navbar, ScrollTop } from "./components";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/user/:username" element={<ProfileCardWidget />} />
             <Route path="/notfound" element={<NotFound />} />
             <Route path="/user/saved" element={<UserSaved />} />
+            <Route path="/listing/:condition/:body" element={<Type />} />
           </Routes>
           <ScrollTop />
           <Footer />

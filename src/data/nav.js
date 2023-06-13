@@ -5,19 +5,19 @@ export const navtype = [
   },
   {
     text: "New SUVs",
-    link: "/?body=suv",
+    link: "/listing/brand new/suv",
   },
   {
     text: "New Coupes",
-    link: "/?body=coupe",
+    link: "/listing/brand new/coupe",
   },
   {
     text: "New Convertibles",
-    link: "/notfound",
+    link: "/listing/brand new/convertible",
   },
   {
     text: "New Sedans",
-    link: "/notfound",
+    link: "/listing/brand new/sedan",
   },
 ];
 
@@ -28,18 +28,18 @@ export const navtypeI = [
   },
   {
     text: "Used SUVs",
-    link: "//?body=suv",
+    link: "/listing/used/suv",
   },
   {
     text: "Used Coupes",
-    link: "//?body=suv",
+    link: "/listing/used/coupe",
   },
   {
     text: "Used Convertibles",
-    link: "/notfound",
+    link: "/listing/used/convertible",
   },
   {
     text: "Used Sedans",
-    link: "/notfound",
+    link: "/listing/used/sedan",
   },
 ];
