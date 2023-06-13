@@ -16,9 +16,10 @@ import { logOutUser } from "../../hooks/authSlice";
 import { toast } from "react-toastify";
 import { useGetAllListingsQuery } from "../../hooks/ListingApi";
 import { Avatar } from "../../libs";
-import { Badge } from "@mui/material";
+import { Backdrop, Badge } from "@mui/material";
 import axios from "axios";
 import { BASE_URL } from "../../hooks/api";
+import Notification from "../modal/Notification";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
@@ -33,11 +34,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const xl = "1440px";
   const [res, setRes] = useState([]);
+  const [open, setOpen] = useState(false);
 
   async function fetch() {
-    const response = await axios.get(`http://localhost:4000/users/notify/id`, {
-      userId: auth._id,
-    });
+    const response = await axios.get(
+      `${BASE_URL}/users/notify/${auth?.username}`
+    );
     const fetched = response?.data;
     setRes(fetched);
     console.log("my response", res);
@@ -208,14 +210,21 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      {open && (
+        <Backdrop open={open}>
+          {res?.notifications?.map((notify) => (
+            <Notification setOpen={setOpen} notify={notify} />
+          ))}
+        </Backdrop>
+      )}
       <div className="flex gap-5 pr-5 max-[800px]:hidden items-center">
         {auth?._id ? (
           <>
-            <Badge badgeContent={res?.notifications?.length || 1} color="error">
+            <Badge badgeContent={res?.notifications?.length} color="error">
               <BsFillBellFill
                 size={40}
                 className="hover:cursor-pointer relative hover:bg-slate-300 p-2 rounded-lg"
-                onClick={OpenChat}
+                onClick={() => setOpen(true)}
               />
             </Badge>
             <BiMessageDetail
