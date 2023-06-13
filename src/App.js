@@ -15,6 +15,7 @@ import {
 } from "./pages";
 import { BottomNav, Footer, Navbar, ScrollTop } from "./components";
 import { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "./styles/Global";
 
 function App() {
   const theme = {
@@ -29,6 +30,7 @@ function App() {
     <>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
+          <GlobalStyles />
           <Navbar />
           <ToastContainer />
           <Routes>

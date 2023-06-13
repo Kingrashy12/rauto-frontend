@@ -12,6 +12,7 @@ import axios from "axios";
 import { BASE_URL } from "../../hooks/api";
 import { Backdrop } from "@mui/material";
 import NotAvailable from "./NotAvailable";
+import { StyledLoader } from "../../styles/layout/Loader.styled";
 
 const PostFeed = ({ filter, setFilter }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -119,12 +120,21 @@ const PostFeed = ({ filter, setFilter }) => {
       >
         {/* {empty? <NotAvailable data={see?.pmake} />} */}
         {isLoading ? (
-          <div className="flex gap-5 w-full relative items-center self-center justify-center">
-            <BounceLoader size={150} />
-          </div>
+          <StyledLoader>
+            <div className="flex gap-5 flex-col w-full relative items-center self-center justify-center">
+              <BounceLoader size={150} />
+              <h2 className="text-2xl font-semibold font-sofia">
+                Fetching Listings...
+              </h2>
+            </div>
+          </StyledLoader>
         ) : (
           <>
-            {error && <Error />}
+            {error && (
+              <StyledLoader>
+                <Error />
+              </StyledLoader>
+            )}
             {data
               ?.filter(
                 (p) =>

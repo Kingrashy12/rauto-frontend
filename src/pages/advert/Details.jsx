@@ -58,11 +58,11 @@ const Details = () => {
     setIsLoading(true);
     try {
       const fetchList = await axios.get(`${BASE_URL}/listing/${id}`);
-      const response = await fetchList.data;
+      const response = await fetchList?.data;
       setProduct(response);
       console.log("product:", product);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response?.data);
       setEmpty(true);
     } finally {
       setIsLoading(false);
@@ -91,10 +91,20 @@ const Details = () => {
   useEffect(() => {
     if (product.length === 0) {
       setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        setEmpty(true);
+      }, 10000);
     } else {
       setIsLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (!product || product.length > 0) {
+      return setEmpty(true);
+    }
+  });
 
   useEffect(() => {
     getSimilarListing();

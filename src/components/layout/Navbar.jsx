@@ -17,6 +17,8 @@ import { toast } from "react-toastify";
 import { useGetAllListingsQuery } from "../../hooks/ListingApi";
 import { Avatar } from "../../libs";
 import { Badge } from "@mui/material";
+import axios from "axios";
+import { BASE_URL } from "../../hooks/api";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
@@ -30,6 +32,20 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const xl = "1440px";
+  const [res, setRes] = useState([]);
+
+  async function fetch() {
+    const response = await axios.get(`http://localhost:4000/users/notify/id`, {
+      userId: auth._id,
+    });
+    const fetched = response?.data;
+    setRes(fetched);
+    console.log("my response", res);
+  }
+
+  useEffect(() => {
+    fetch();
+  });
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -195,11 +211,13 @@ const Navbar = () => {
       <div className="flex gap-5 pr-5 max-[800px]:hidden items-center">
         {auth?._id ? (
           <>
-            <BsFillBellFill
-              size={40}
-              className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"
-              onClick={OpenChat}
-            />
+            <Badge badgeContent={res?.notifications?.length || 1} color="error">
+              <BsFillBellFill
+                size={40}
+                className="hover:cursor-pointer relative hover:bg-slate-300 p-2 rounded-lg"
+                onClick={OpenChat}
+              />
+            </Badge>
             <BiMessageDetail
               size={40}
               className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { ErrorWrapper } from "../../styles/pages/Error.styled";
 import { useLocation } from "react-router-dom";
+import { MdOutlineWifiTetheringError } from "react-icons/md";
 
 const Error = () => {
   const [view, setView] = useState(false);
   const path = useLocation();
   return (
-    <ErrorWrapper className="flex flex-col gap-8 relative p-0 max-[700px]:w-full">
+    <ErrorWrapper className="flex flex-col gap-8 relative justify-center p-0 max-[700px]:w-full">
+      <p className="text-center flex justify-center items-center">
+        <MdOutlineWifiTetheringError className="text-8xl text-red-600" />
+      </p>
       <p className="text-center flex justify-center items-center text-red-500 font-sofia font-semibold text-2xl mt-5">
         An error occured
       </p>

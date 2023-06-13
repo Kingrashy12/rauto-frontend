@@ -38,7 +38,7 @@ const UserBio = ({ u, profileId }) => {
       setFollowing(false);
     }
   }
-  const isfollowing = u.followers.includes(profileId);
+  const isfollowing = u?.followers?.includes(profileId);
 
   useEffect(() => {
     if (following) {
