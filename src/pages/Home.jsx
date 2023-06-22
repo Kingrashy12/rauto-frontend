@@ -4,6 +4,7 @@ import {
   FindFitSection,
   HeroHeader,
   HeroSection,
+  ShopSection,
 } from "../components";
 
 const Home = () => {
@@ -12,11 +13,14 @@ const Home = () => {
   });
   return (
     <div className="flex flex-col mt-0 p-0 bg-white">
-      <HeroSection />
+      <div className="bg-black">
+        <HeroSection />
+      </div>
       <HeroHeader />
       <BrandSection />
       <hr />
       <FindFitSection />
+      <ShopSection />
     </div>
   );
 };
