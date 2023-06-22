@@ -169,7 +169,7 @@ const Details = () => {
               {isLoading ? (
                 <Skeleton variant="text" width={`200px`} height={`60px`} />
               ) : (
-                <h1 className="font-extrabold text-3xl font-sofia max-[700px]:text-2xl">
+                <h1 className="font-extrabold text-3xl font-sofia max-[700px]:text-2xl max-[350px]:text-base">
                   {product?.pname}
                 </h1>
               )}
@@ -177,7 +177,7 @@ const Details = () => {
                 {isLoading ? (
                   <Skeleton varaint="text" width={`100px`} height={`50px`} />
                 ) : (
-                  <h3 className="text-3xl font-sofia font-bold mb-1">
+                  <h3 className="text-3xl font-sofia font-bold mb-1 max-[350px]:text-2xl">
                     &#8358; {product?.pPrice?.toLocaleString()}
                   </h3>
                 )}
@@ -187,17 +187,11 @@ const Details = () => {
                   <>
                     {i ? (
                       <p onClick={() => del(i)}>
-                        <BsFillBookmarkCheckFill
-                          size={35}
-                          className="bg-white p-2 rounded-lg absolute  cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-x-8"
-                        />
+                        <BsFillBookmarkCheckFill className="bg-white p-2 rounded-lg absolute text-3xl cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-x-8 max-[350px]:text-2xl" />
                       </p>
                     ) : (
                       <p onClick={add}>
-                        <BsBookmark
-                          size={35}
-                          className="bg-white p-2 rounded-lg absolute cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-x-8"
-                        />
+                        <BsBookmark className="bg-white p-2 rounded-lg absolute text-3xl cursor-pointer max-[700px]:rounded-sm max-[700px]:p-1 max-[700px]:-translate-x-8 max-[350px]:text-2xl" />
                       </p>
                     )}
                   </>
@@ -253,7 +247,7 @@ const Details = () => {
                     <Skeleton variant="text" width={`80px`} height={`40px`} />
                   ) : (
                     <span className="font-sofia text-black bg-slate-200 p-xs-s mb-3 text-sm rounded-sm">
-                      {product?.pmake?.toUpperCase()}{" "}
+                      {product?.pmake}
                     </span>
                   )}
                   {isLoading ? (

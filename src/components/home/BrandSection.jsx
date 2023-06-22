@@ -11,7 +11,7 @@ const BrandSection = () => {
     <div className="bg-black p-6 flex flex-col gap-5 w-full max-[700px]:p-2">
       <HeaderOne
         text="You might like"
-        className="text-white text-3xl"
+        className="text-white text-3xl max-[400px]:text-xl"
         fontSofia
         fontSemibold
       />

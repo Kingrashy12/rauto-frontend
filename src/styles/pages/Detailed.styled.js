@@ -11,6 +11,10 @@ const StyledDetails = styled.section`
 
 const ListingImg = styled.img`
   width: 50rem;
+
+  @media screen and (max-width: 700px) {
+    border-radius: 0;
+  }
 `;
 
 export { StyledDetails, ListingImg };
