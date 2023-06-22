@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 const StyledNav = styled.nav`
-  /* position: sticky; */
-  /* top: 0; */
   width: 100%;
   height: 70px;
   padding: 1rem;
@@ -12,8 +10,11 @@ const StyledNav = styled.nav`
   z-index: 98;
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    height: 40px;
-    padding: 9px;
+    height: 50px;
+    padding: 0;
+  }
+  @media (max-width: 350px) {
+    padding: 0;
   }
 `;
 

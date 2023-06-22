@@ -6,12 +6,15 @@ import { toast } from "react-toastify";
 const initialState = {
   listings: [],
   make: [],
+  cl: [],
   status: null,
   error: null,
   createStatus: null,
   createError: null,
   makeStatus: null,
   makeError: null,
+  clStatus: null,
+  clError: null,
 };
 
 export const ListingsFetch = createAsyncThunk(
@@ -59,6 +62,19 @@ export const getBrandMake = createAsyncThunk(
   }
 );
 
+export const getConditionListing = createAsyncThunk(
+  "car-listing/get-bg-condition",
+  async (condition, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/listing/${condition}/get`);
+      return response?.data;
+    } catch (error) {
+      console.log(error.response.data);
+      return rejectWithValue({ error: error.response.data });
+    }
+  }
+);
+
 const ListingSlice = createSlice({
   name: "car-listing",
   initialState,
@@ -95,6 +111,15 @@ const ListingSlice = createSlice({
     });
     builder.addCase(getBrandMake.rejected, (state, action) => {
       return { ...state, makeStatus: "rejected", makeError: action.payload };
+    });
+    builder.addCase(getConditionListing.pending, (state, action) => {
+      return { ...state, clStatus: "pending" };
+    });
+    builder.addCase(getConditionListing.fulfilled, (state, action) => {
+      return { ...state, clStatus: "success", cl: action.payload };
+    });
+    builder.addCase(getConditionListing.rejected, (state, action) => {
+      return { ...state, clStatus: "rejected", clError: action.payload };
     });
   },
 });

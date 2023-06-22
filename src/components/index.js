@@ -24,3 +24,4 @@ export { default as CustomFilter } from "./filter/CustomFilter";
 export { default as SearchBar } from "./form/SearchBar";
 export { default as ListingFeed } from "./listing/ListingFeed";
 export { default as BackPage } from "./BackPage";
+export { default as EmptyMsg } from "./EmptyMsg";

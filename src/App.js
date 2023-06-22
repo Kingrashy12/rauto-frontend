@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import {
   AllListing,
   Auth,
+  Condition,
   Details,
   Home,
   Login,
@@ -49,6 +50,7 @@ function App() {
             <Route path="/make/:make" element={<Make />} />
             <Route path="/user/saved" element={<UserSaved />} />
             <Route path="/listing/:condition/:body" element={<Type />} />
+            <Route path="/listing/:condition/car" element={<Condition />} />
           </Routes>
           <ScrollTop />
           <Footer />

@@ -20,19 +20,17 @@ import { Backdrop, Badge } from "@mui/material";
 import axios from "axios";
 import { BASE_URL } from "../../hooks/api";
 import Notification from "../modal/Notification";
+import NavSaerchBar from "../form/NavSaerchBar";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
   const [used, setUsed] = useState(false);
   const [view, setView] = useState(false);
-  const [value, setValue] = useState("");
-  const [iscliked, setIsCliked] = useState(false);
   const { data } = useGetAllListingsQuery();
   const auth = useSelector((state) => state.auth);
   const saved = useSelector((state) => state.saved.savedItems);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const xl = "1440px";
   const [res, setRes] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -49,15 +47,6 @@ const Navbar = () => {
     fetch();
   });
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  const onSearch = (searchTerm) => {
-    setValue(searchTerm);
-    console.log("searched:", searchTerm);
-  };
-
   function OpenChat() {
     if (!auth?._id) {
       navigate("/login");
@@ -72,13 +61,6 @@ const Navbar = () => {
     }
   }
 
-  useEffect(() => {
-    if (iscliked) {
-      setTimeout(() => {
-        setIsCliked(false);
-      }, 15000);
-    }
-  });
   return (
     <StyledNav className="bg-white fixed -top-1 shadow-black shadow-md">
       <div className="flex gap-3 items-center">
@@ -89,56 +71,7 @@ const Navbar = () => {
           onClick={() => navigate("/")}
           to="/auth"
         />
-        <div className="flex bg-slate-300 p-1 w-96 pl-4 rounded-3xl items-center relative max-[700px]:w-56 max-[700px]:p-0 max-[700px]:pl-3 max-[350px]:w-48 max-[350px]:p-xs-s max-[350px]:pl-2">
-          <FiSearch
-            size={xl ? 23 : 16}
-            onClick={() => onSearch(value)}
-            className="cursor-pointer max-[350px]:order-2 max-[350px]:-translate-x-3 max-[350px]:text-80 text-black hover:text-slate-800"
-          />
-          <input
-            type="text"
-            placeholder="Search"
-            value={value}
-            onKeyDown={() => onSearch(value)}
-            onChange={handleChange}
-            className="w-80 p-2 max-[700px]:p-1 max-[700px]:w-56 max-[350px]:w-44 max-[350px]:p-xs-s max-[350px]:text-sm bg-transparent outline-none focus:border-sky-500 placeholder:text-black focus:outline-1 font-semibold font-sofia text-black"
-          />
-        </div>
-        <div
-          className={`${
-            value ? "flex" : "hidden"
-          }   flex-col absolute shadow w-96 top-18 max-[700px]:top-10.5 max-[700px]:left-32 max-[700px]:w-56 max-[350px]:w-48 max-[350px]:left-28 left-52 bg-white rounded-b-lg p-1`}
-        >
-          {data
-            ?.filter((data) => {
-              const searchTerm = value.toLowerCase();
-              const pname = data.pname.toLowerCase();
-
-              return (
-                searchTerm && pname.includes(searchTerm) && pname !== searchTerm
-              );
-            })
-            .map((data, index) => (
-              <div
-                className="flex p-1 flex-col"
-                key={index}
-                onClick={() => {
-                  setIsCliked(true);
-                  setValue("");
-                  navigate(`/listing/${data._id}`);
-                }}
-              >
-                <p
-                  onClick={() => {
-                    onSearch(data.pname);
-                  }}
-                  className="font-semibold p-3 rounded-lg hover:bg-neutral-300 cursor-pointer"
-                >
-                  {data.pname}
-                </p>
-              </div>
-            ))}
-        </div>
+        <NavSaerchBar data={data} />
         <div className="max-[800px]:hidden flex justify-evenly">
           <p
             className="text-black font-bold flex gap-1 cursor-pointer"
@@ -180,7 +113,8 @@ const Navbar = () => {
                 {navtype.map((type, index) => (
                   <div className="flex flex-col text-white w-full" key={index}>
                     <a
-                      href={type.link.replace(/\s+/g, "+")}
+                      href={type.link}
+                      // href={type.link.replace(/\s+/g, "+")}
                       onClick={() => setDrop(false)}
                       className="hover:bg-slate-700 cursor-pointer w-full p-2 rounded-md font-semibold"
                     >
@@ -197,7 +131,8 @@ const Navbar = () => {
                 {navtypeI.map((type, index) => (
                   <div className="flex flex-col text-white w-full" key={index}>
                     <a
-                      href={type.link.replace(/\s+/g, "+")}
+                      href={type.link}
+                      // href={type.link.replace(/\s+/g, "+")}
                       onClick={() => setUsed(false)}
                       className="hover:bg-slate-700 cursor-pointer w-full p-2 rounded-md font-semibold"
                     >
