@@ -2,10 +2,12 @@ import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import {
+  AllListing,
   Auth,
   Details,
   Home,
   Login,
+  Make,
   NotFound,
   // ProfileCard,
   ProfileCardWidget,
@@ -36,6 +38,7 @@ function App() {
           <ToastContainer />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/all-listing" element={<AllListing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<SignUp />} />
             <Route path="/auth/reset" element={<Auth />} />
@@ -43,6 +46,7 @@ function App() {
             <Route path="/listing/:id" element={<Details />} />
             <Route path="/user/:username" element={<ProfileCardWidget />} />
             <Route path="/notfound" element={<NotFound />} />
+            <Route path="/make/:make" element={<Make />} />
             <Route path="/user/saved" element={<UserSaved />} />
             <Route path="/listing/:condition/:body" element={<Type />} />
           </Routes>

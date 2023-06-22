@@ -13,6 +13,9 @@ module.exports = {
       share: "'Share Tech Mono', monospace",
       mono: "'Segoe UI', Tahoma, sans-serif",
     },
+    backgroundImage: {
+      "bg-hero": "url('./hero-bg.png')",
+    },
     extend: {
       borderWidth: {
         bold: "40px",

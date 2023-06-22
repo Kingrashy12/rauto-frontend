@@ -7,12 +7,6 @@ const StyledLogin = styled.section`
   display: flex;
   margin-top: 4.5rem;
 
-  input {
-    &:focus {
-      border: 2px solid aqua;
-    }
-  }
-
   @media (max-width: ${({ theme }) => theme.sm}) {
     input {
       &:focus {

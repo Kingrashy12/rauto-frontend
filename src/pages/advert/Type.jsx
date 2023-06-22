@@ -1,15 +1,21 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TypeMap } from "../../components";
+import { Error, TypeMap } from "../../components";
 import { BounceLoader } from "react-spinners";
 import { Skeleton } from "@mui/material";
 import { BASE_URL } from "../../hooks/api";
+import { StyledLoader } from "../../styles/layout/Loader.styled";
 
 const Type = () => {
   const { condition, body } = useParams();
   const [type, setType] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    document.title = `${condition.toUpperCase()} ${body.toUpperCase()} Cars`;
+  });
+  const [error, setError] = useState(false);
 
   const getType = useCallback(async () => {
     setIsLoading(true);
@@ -22,6 +28,7 @@ const Type = () => {
       console.log("I got this type:", type);
     } catch (error) {
       console.log({ error: error.message });
+      setError(true);
     } finally {
       setIsLoading(false);
     }
@@ -39,6 +46,12 @@ const Type = () => {
         <h1 className="text-2xl font-semibold font-sofia">
           {condition.toUpperCase()} {body.toUpperCase()}
         </h1>
+      )}
+
+      {error && (
+        <StyledLoader>
+          <Error />
+        </StyledLoader>
       )}
 
       {isLoading ? (

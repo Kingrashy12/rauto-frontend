@@ -115,9 +115,7 @@ const Navbar = () => {
               const pname = data.pname.toLowerCase();
 
               return (
-                searchTerm &&
-                pname.startsWith(searchTerm) &&
-                pname !== searchTerm
+                searchTerm && pname.includes(searchTerm) && pname !== searchTerm
               );
             })
             .map((data, index) => (
@@ -182,7 +180,7 @@ const Navbar = () => {
                 {navtype.map((type, index) => (
                   <div className="flex flex-col text-white w-full" key={index}>
                     <a
-                      href={type.link}
+                      href={type.link.replace(/\s+/g, "+")}
                       onClick={() => setDrop(false)}
                       className="hover:bg-slate-700 cursor-pointer w-full p-2 rounded-md font-semibold"
                     >
@@ -199,7 +197,7 @@ const Navbar = () => {
                 {navtypeI.map((type, index) => (
                   <div className="flex flex-col text-white w-full" key={index}>
                     <a
-                      href={type.link}
+                      href={type.link.replace(/\s+/g, "+")}
                       onClick={() => setUsed(false)}
                       className="hover:bg-slate-700 cursor-pointer w-full p-2 rounded-md font-semibold"
                     >

@@ -5,9 +5,13 @@ import { toast } from "react-toastify";
 
 const initialState = {
   listings: [],
+  make: [],
   status: null,
   error: null,
   createStatus: null,
+  createError: null,
+  makeStatus: null,
+  makeError: null,
 };
 
 export const ListingsFetch = createAsyncThunk(
@@ -42,33 +46,56 @@ export const CreateListing = createAsyncThunk(
   }
 );
 
+export const getBrandMake = createAsyncThunk(
+  "car-listing/get-make-listing",
+  async (make, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/listing/brand/${make}`);
+      return response?.data;
+    } catch (error) {
+      console.log(error.response.data);
+      return rejectWithValue({ error: error.response.data });
+    }
+  }
+);
+
 const ListingSlice = createSlice({
   name: "car-listing",
   initialState,
   reducers: {},
-  extraReducers: {
-    [ListingsFetch.pending]: (state, action) => {
-      state.status = "pending";
-    },
-    [ListingsFetch.fulfilled]: (state, action) => {
-      state.status = "success";
-      state.listings = action.payload;
-    },
-    [ListingsFetch.rejected]: (state, action) => {
-      state.status = "rejected";
-      state.error = action.payload;
-    },
-    [CreateListing.pending]: (state, action) => {
-      state.createStatus = "pending";
-    },
-    [CreateListing.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(ListingsFetch.pending, (state, action) => {
+      return { ...state, status: "pending" };
+    });
+    builder.addCase(ListingsFetch.fulfilled, (state, action) => {
+      return { ...state, status: "success", listings: action.payload };
+    });
+    builder.addCase(ListingsFetch.rejected, (state, action) => {
+      return { ...state, status: "rejected", error: action.payload };
+    });
+    builder.addCase(CreateListing.pending, (state, action) => {
+      return { ...state, createStatus: "pending" };
+    });
+    builder.addCase(CreateListing.fulfilled, (state, action) => {
       state.listings.push(action.payload);
-      state.createStatus = "success";
-    },
-    [CreateListing.rejected]: (state, action) => {
-      state.createStatus = "rejected";
-      state.error = action.payload;
-    },
+      return { ...state, createStatus: "success" };
+    });
+    builder.addCase(CreateListing.rejected, (state, action) => {
+      return {
+        ...state,
+        createStatus: "rejected",
+        createError: action.payload,
+      };
+    });
+    builder.addCase(getBrandMake.pending, (state, action) => {
+      return { ...state, makeStatus: "pending" };
+    });
+    builder.addCase(getBrandMake.fulfilled, (state, action) => {
+      return { ...state, makeStatus: "success", make: action.payload };
+    });
+    builder.addCase(getBrandMake.rejected, (state, action) => {
+      return { ...state, makeStatus: "rejected", makeError: action.payload };
+    });
   },
 });
 

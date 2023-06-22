@@ -17,7 +17,7 @@ const saveSlice = createSlice({
       toast.success(`You saved ${action.payload.pname}`, {
         position: "top-center",
       });
-    },
+    }, 
     removeItem: (state, action) => {
       const nextSavedItem = state.savedItems.filter(
         (product) => product._id !== action.payload._id

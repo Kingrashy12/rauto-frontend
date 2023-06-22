@@ -2,3 +2,8 @@ export { default as EditModal } from "./models/EditModal";
 export { default as ImageModal } from "./models/ImageModal";
 export { default as Image } from "./components/Image";
 export { default as Avatar } from "./components/Avatar";
+export { default as HeaderOne } from "./texts/HeaderOne";
+export { default as Button } from "./components/Button";
+export { default as EmailInput } from "./components/Input/EmailInput";
+export { default as PasswordInput } from "./components/Input/PasswordInput";
+export { default as TextInput } from "./components/Input/TextInput";

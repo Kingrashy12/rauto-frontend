@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { StyledSignUp } from "../../styles/pages/SignUp.styled";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../hooks/authSlice";
+import { EmailInput, PasswordInput, TextInput } from "../../libs";
 
 const SignUp = () => {
   useEffect(() => {
@@ -29,18 +29,6 @@ const SignUp = () => {
     username: "",
   });
   console.log("user", user);
-  const [showpassword, setShowPassword] = useState(false);
-  const [passwordType, setPasswordType] = useState("password");
-
-  const handleClickShowPassword = () => {
-    if (passwordType === "password") {
-      setPasswordType("text");
-      setShowPassword(true);
-    } else if (passwordType === "text") {
-      setPasswordType("password");
-      setShowPassword(false);
-    }
-  };
 
   const hanldeSubmit = async () => {
     try {
@@ -63,49 +51,30 @@ const SignUp = () => {
   return (
     <StyledSignUp>
       <div className="w-1/3 max-[1024px]:w-1/2 h-auto max-[800px]:w-10/12 max-[700px]:w-11/12 relative bg-slate-800 p-3 rounded-2xl shadow-black shadow-lg justify-evenly flex flex-col items-center">
-        <h2 className="text-white font-share font-bold text-3xl">Regsiter</h2>
-        <input
-          type="text"
-          className="w-10/12 p-3 rounded-lg focus:border-sky-400 outline-none font-bold font-sofia"
-          placeholder="Name"
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
+        <h2 className="text-white font-sofia font-bold text-3xl">Regsiter</h2>
+        <TextInput
+          required={user.name}
           value={user.name}
-          required
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          name="name"
+          placeholder="Name"
         />
-        <input
-          type="text"
-          className="w-10/12 p-3 rounded-lg focus:border-sky-400 outline-none font-bold font-sofia"
-          placeholder="Username"
-          required
+        <TextInput
           value={user.username}
+          required={user.username}
+          name="u-n"
+          placeholder="Username"
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
-        <input
-          type="email"
-          className="w-10/12 p-3 rounded-lg focus:border-sky-400 outline-none font-bold font-sofia"
-          placeholder="Email"
-          required
+        <EmailInput
           value={user.email}
+          required={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-        <div className="flex relative justify-between w-10/12 bg-white pr-2 rounded-lg items-center">
-          <input
-            type={passwordType}
-            className="w-10/12 p-3 rounded-lg bg-transparent focus:border-none outline-none font-bold font-sofia"
-            placeholder="Passowrd"
-            required={true}
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-          />
-          <span onClick={handleClickShowPassword}>
-            {" "}
-            {showpassword ? (
-              <FiEye size={25} className="cursor-pointer" />
-            ) : (
-              <FiEyeOff size={25} className="cursor-pointer" />
-            )}
-          </span>
-        </div>
+        <PasswordInput
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+        />
         <button
           className="font-bold p-2 rounded-lg w-1/2 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black"
           onClick={hanldeSubmit}

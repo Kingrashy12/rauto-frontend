@@ -7,12 +7,6 @@ const StyledSignUp = styled.section`
   display: flex;
   margin-top: 1rem;
 
-  input {
-    &:focus {
-      border: 2px solid aqua;
-    }
-  }
-
   @media (max-width: ${({ theme }) => theme.sm}) {
     input {
       &:focus {
