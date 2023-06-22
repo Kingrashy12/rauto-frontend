@@ -28,7 +28,7 @@ const Condition = () => {
     } else {
       setEmpty(false);
     }
-  });
+  }, [list.cl.length]);
   return (
     <div className="flex relative flex-col mt-16 gap-3 p-5 w-full">
       <BackPage />

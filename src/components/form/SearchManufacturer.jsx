@@ -14,15 +14,15 @@ const SearchManufacturer = ({ setManufacturer, manufacturer }) => {
     const push = window.location === `/make/${query}`;
     push();
   }
-  useEffect(() => {
-    const input = document.getElementById("b-input");
-    input.addEventListener("keyup", (e) => {
-      if (e.key === "Enter") {
-        // navigate(`/make/${query}`);
-        search();
-      }
-    });
-  }, [query]);
+  // useEffect(() => {
+  //   const input = document.getElementById("b-input");
+  //   input.addEventListener("keyup", (e) => {
+  //     if (e.key === "Enter") {
+  //       // navigate(`/make/${query}`);
+  //       search();
+  //     }
+  //   });
+  // }, [query]);
   return (
     <div className="flex flex-col relative w-full">
       <div
