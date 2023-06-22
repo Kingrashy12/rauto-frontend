@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
-  AboutSection,
   BrandSection,
+  FindFitSection,
   HeroHeader,
   HeroSection,
 } from "../components";
@@ -15,7 +15,8 @@ const Home = () => {
       <HeroSection />
       <HeroHeader />
       <BrandSection />
-      {/* <AboutSection /> */}
+      <hr />
+      <FindFitSection />
     </div>
   );
 };

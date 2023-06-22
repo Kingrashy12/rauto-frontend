@@ -8,6 +8,10 @@ import GT63 from "./gt-63.jpg";
 import RAutoFooterLogo from "./rauto-footer.png";
 import HeroImage from "./first.png";
 import HeroImageII from "./huracan-evo-rwd.jpg";
+import FindFitImg from "./find-fit.png";
+import KeyHand from "./hand-key.png";
+import Shop from "./shop.png";
+import BuildImage from "./build-and-price.png";
 
 export {
   RAuto,
@@ -20,4 +24,8 @@ export {
   RAutoFooterLogo,
   HeroImage,
   HeroImageII,
+  FindFitImg,
+  KeyHand,
+  Shop,
+  BuildImage,
 };
