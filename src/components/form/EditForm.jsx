@@ -29,7 +29,7 @@ const EditForm = ({ u, setOpen }) => {
   console.log("user:", user);
 
   const handleSubmit = async () => {
-    dispatch(EditUserProfile({ userId, user }));
+    dispatch(EditUserProfile(user, userId));
   };
 
   const onImageChange = (e) => {
