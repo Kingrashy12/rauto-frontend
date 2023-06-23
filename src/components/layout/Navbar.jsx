@@ -159,18 +159,21 @@ const Navbar = () => {
             <Badge badgeContent={res?.notifications?.length} color="error">
               <BsFillBellFill
                 size={40}
+                color="#fff"
                 className="hover:cursor-pointer relative hover:bg-slate-300 p-2 rounded-lg"
                 onClick={() => setOpen(true)}
               />
             </Badge>
             <BiMessageDetail
               size={40}
+              color="#fff"
               className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"
               onClick={OpenChat}
             />
             <Badge badgeContent={saved.length} color="info">
               <BsFillBookmarksFill
                 size={40}
+                color="#fff"
                 className="hover:cursor-pointer hover:bg-slate-300 p-2 rounded-lg"
                 onClick={() => navigate("/user/saved")}
               />

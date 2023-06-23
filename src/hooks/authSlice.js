@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "./api";
 import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -11,7 +12,9 @@ const initialState = {
   _id: "",
   FetcStatus: null,
   FetchError: null,
-  userProfile: "",
+  userProfile: localStorage.getItem("user-p")
+    ? JSON.parse(localStorage.getItem("user-p"))
+    : "",
   registerStatus: "",
   registerError: "",
   loginStatus: "",
@@ -19,6 +22,8 @@ const initialState = {
   userLoaded: false,
   followStatus: null,
   followError: null,
+  editStatus: null,
+  editError: null,
 };
 
 export const registerUser = createAsyncThunk(
@@ -52,6 +57,26 @@ export const loginUser = createAsyncThunk(
       console.log(token.data);
       return token.data;
     } catch (error) {
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const EditUserProfile = createAsyncThunk(
+  "auth/edit",
+  async (user, userId, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(`${BASE_URL}/users/${userId}/edit`, {
+        userId: userId,
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        userProfile: user.userProfile,
+      });
+      return response?.data;
+    } catch (error) {
+      toast.error(error.response.data, { position: "top-center" });
       console.log(error.response.data);
       return rejectWithValue(error.response.data);
     }
@@ -150,6 +175,21 @@ const authSlice = createSlice({
         ...state,
         loginStatus: "rejected",
         loginError: action.payload,
+      };
+    });
+    builder.addCase(EditUserProfile.pending, (state, action) => {
+      return { ...state, editStatus: "pending" };
+    });
+    builder.addCase(EditUserProfile.fulfilled, (state, action) => {
+      state.userProfile = action.payload.userProfile;
+      localStorage.setItem("user-p", JSON.stringify(state.userProfile));
+      toast.success("Info Updated", { position: "top-center" });
+      return {
+        ...state,
+        editStatus: "success",
+        name: action.payload.name,
+        email: action.payload.email,
+        username: action.payload.username,
       };
     });
   },

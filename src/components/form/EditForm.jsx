@@ -7,40 +7,29 @@ import { toast } from "react-toastify";
 import { Male } from "../../asset";
 import { ImageModal } from "../../libs";
 import { BASE_URL } from "../../hooks/api";
+import { useDispatch, useSelector } from "react-redux";
+import { EditUserProfile } from "../../hooks/authSlice";
 
 const EditForm = ({ u, setOpen }) => {
-  const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState("");
   const [gallery, setGallery] = useState(false);
   const [profile, setProfile] = useState("");
   const imgRef = useRef();
   const userId = u._id;
+  const auth = useSelector((state) => state.auth);
+  const loading = auth.editStatus === "pending";
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: u.name,
     email: u.email,
     username: u.username,
+    userProfile: "",
   });
 
   console.log("user:", user);
 
   const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      await axios.patch(`${BASE_URL}/users/${userId}/edit`, {
-        userId: userId,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        userProfile: profile,
-      });
-      toast.success(`Info Updated`, { position: "top-center" });
-      setOpen(false);
-    } catch (error) {
-      console.log(error);
-      toast.error({ error: error.message });
-    } finally {
-      setLoading(false);
-    }
+    dispatch(EditUserProfile({ userId, user }));
   };
 
   const onImageChange = (e) => {
@@ -58,6 +47,7 @@ const EditForm = ({ u, setOpen }) => {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setPhoto(reader.result);
+        setUser({ ...user, userProfile: reader.result });
       };
     } else {
       setPhoto("");
