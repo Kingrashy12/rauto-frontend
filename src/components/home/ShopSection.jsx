@@ -18,8 +18,13 @@ const ShopSection = () => {
       <div className="flex flex-wrap w-full justify-center items-center gap-3">
         {favouritebranddata.map((item, index) => (
           <Link to={item.link}>
-            <div className="flex gap-3 rounded-[8px] bg-white shadow shadow-slate-400 p-3 w-[300px] justify-center items-center">
-              <img src={item.img} alt="Brand Image" className="w-[40px]" />
+            <div className="flex gap-3 rounded-[5px] hover:shadow-md bg-white shadow shadow-slate-400 p-3 h-[100px] w-[300px] justify-center items-center">
+              <img
+                src={item.img}
+                alt={item.name}
+                draggable={false}
+                className="w-[40px]"
+              />
               <p className="font-semibold font-sofia text-base">{item.name}</p>
             </div>
           </Link>

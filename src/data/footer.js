@@ -1,35 +1,35 @@
 export const footerdata = [
   {
     title: "About",
-    text: "How it works",
+    text: "RAuto, Inc",
     link: "/notfound",
   },
   {
-    text: "Featured",
-    link: "/notfound",
+    text: "Github",
+    link: "https://github.com/Kingrashy12",
   },
   {
     text: "Partnership",
     link: "/notfound",
   },
   {
-    text: "Terms & Conditions",
-    link: "/notfound",
+    text: "Developers",
+    link: "https://raphealdev.vercel.app",
   },
 ];
 export const footerdataI = [
   {
-    title: "Company",
-    text: "Github",
-    link: "https://github.com/Kingrashy12",
+    title: "Product",
+    text: "Used",
+    link: "/listing/used/car",
   },
   {
-    text: "Event",
-    link: "/notfound",
+    text: "New",
+    link: "/listing/brand new/car",
   },
   {
-    text: "Blog",
-    link: "https://raphealdev.vercel.app",
+    text: "Sell your car",
+    link: "/sell-your-car",
   },
   {
     text: "Invite a friend",

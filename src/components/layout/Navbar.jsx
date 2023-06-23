@@ -71,13 +71,7 @@ const Navbar = () => {
           onClick={() => navigate("/")}
           to="/auth"
         />
-        {/* <img
-          src={RAuto}
-          alt=""
-          className="w-44 cursor-pointer max-[700px]:w-28"
-          onClick={() => navigate("/")}
-          to="/auth"
-        /> */}
+
         <NavSaerchBar data={data} />
         <div className="max-[800px]:hidden flex justify-evenly">
           <p
