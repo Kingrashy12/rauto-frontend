@@ -3,7 +3,7 @@ import { StyledNav } from "../../styles/layout/Nav.styled";
 import { FiSearch } from "react-icons/fi";
 import { BiMessageDetail } from "react-icons/bi";
 import { BsFillBellFill, BsFillBookmarksFill } from "react-icons/bs";
-import { RAuto } from "../../asset";
+import { RAuto, RAutoLogoNew } from "../../asset";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { navtype, navtypeI } from "../../data/nav";
@@ -62,19 +62,26 @@ const Navbar = () => {
   }
 
   return (
-    <StyledNav className="bg-white fixed -top-1 shadow-black shadow-md">
+    <StyledNav className="bg-black fixed -top-1 shadow-white shadow-md">
       <div className="flex gap-3 items-center">
         <img
-          src={RAuto}
+          src={RAutoLogoNew}
           alt=""
           className="w-44 cursor-pointer max-[700px]:w-28"
           onClick={() => navigate("/")}
           to="/auth"
         />
+        {/* <img
+          src={RAuto}
+          alt=""
+          className="w-44 cursor-pointer max-[700px]:w-28"
+          onClick={() => navigate("/")}
+          to="/auth"
+        /> */}
         <NavSaerchBar data={data} />
         <div className="max-[800px]:hidden flex justify-evenly">
           <p
-            className="text-black font-bold flex gap-1 cursor-pointer"
+            className="text-white font-bold flex gap-1 cursor-pointer"
             onClick={() => {
               setDrop(!drop);
               setUsed(false);
@@ -88,7 +95,7 @@ const Navbar = () => {
             )}
           </p>
           <p
-            className="text-black font-bold flex gap-1 cursor-pointer"
+            className="text-white font-bold flex gap-1 cursor-pointer"
             onClick={() => {
               setUsed(!used);
               setDrop(false);
@@ -103,7 +110,7 @@ const Navbar = () => {
           </p>
           <button
             onClick={Sell}
-            className="font-semibold cursor-pointer bg-black border-none text-white p-2 hover:opacity-70 rounded-md text-sm transition-all ease-linear duration-700"
+            className="font-semibold cursor-pointer bg-white border-none text-black p-2 hover:opacity-70 rounded-md text-sm transition-all ease-linear duration-700"
           >
             Sell Your Car
           </button>
@@ -232,7 +239,7 @@ const Navbar = () => {
               Login
             </button>
             <button
-              className="text-white border-2 border-black bg-black p-2 text-sm outline-none rounded-md hover:bg-transparent hover:text-black font-sofia font-bold"
+              className="text-white border-2 border-white bg-transparent p-2 text-sm outline-none rounded-md hover:bg-transparent hover:opacity-75 font-sofia font-bold"
               onClick={() => navigate("/register")}
             >
               SignUp

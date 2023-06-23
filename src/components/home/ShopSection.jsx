@@ -2,8 +2,11 @@ import React from "react";
 import { HeaderOne } from "../../libs";
 import { favouritebranddata } from "../../data/favourdata";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ShopSection = () => {
+  const tem = useSelector((state) => state.listing.listings);
+  const make = tem.find((item) => item.pmake);
   return (
     <div className="flex flex-col relative w-full justify-center gap-5 items-center p-6">
       <HeaderOne

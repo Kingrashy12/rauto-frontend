@@ -12,6 +12,7 @@ import FindFitImg from "./find-fit.png";
 import KeyHand from "./hand-key.png";
 import Shop from "./shop.png";
 import BuildImage from "./build-and-price.png";
+import RAutoLogoNew from "./rauto-1.png";
 
 export {
   RAuto,
@@ -28,4 +29,5 @@ export {
   KeyHand,
   Shop,
   BuildImage,
+  RAutoLogoNew,
 };

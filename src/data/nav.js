@@ -1,7 +1,7 @@
 export const navtype = [
   {
     text: "New Car Listing",
-    link: "/listing/new/car",
+    link: "/listing/brand new/car",
   },
   {
     text: "New SUVs",
