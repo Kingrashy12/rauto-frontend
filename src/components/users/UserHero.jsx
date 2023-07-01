@@ -6,7 +6,7 @@ const UserHero = ({ user }) => {
     <div className="relative w-full">
       {user?.userProfile ? (
         <img
-          src={user.userProfile}
+          src={user.userProfile?.url}
           alt="UserProfile"
           style={{ objectFit: "cover" }}
           className="w-full h-72 bg-slate-300 rounded-lg max-[700px]:h-44 border border-black"

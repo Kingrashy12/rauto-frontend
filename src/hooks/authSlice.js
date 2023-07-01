@@ -24,6 +24,8 @@ const initialState = {
   followError: null,
   editStatus: null,
   editError: null,
+  deleteStatus: null,
+  deleteError: null,
 };
 
 export const registerUser = createAsyncThunk(
@@ -68,7 +70,7 @@ export const EditUserProfile = createAsyncThunk(
   async (user, userId, { rejectWithValue }) => {
     try {
       const response = await axios.patch(`${BASE_URL}/users/${userId}/edit`, {
-        userId: userId,
+        userId: user.userId,
         name: user.name,
         email: user.email,
         username: user.username,
@@ -77,6 +79,20 @@ export const EditUserProfile = createAsyncThunk(
       return response?.data;
     } catch (error) {
       toast.error(error.response.data, { position: "top-center" });
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteAccount = createAsyncThunk(
+  "auth-delete",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${BASE_URL}/users/${userId}`);
+      return response?.data;
+    } catch (error) {
+      toast.error(error.message, { position: "top-center" });
       console.log(error.response.data);
       return rejectWithValue(error.response.data);
     }
@@ -190,6 +206,54 @@ const authSlice = createSlice({
         name: action.payload.name,
         email: action.payload.email,
         username: action.payload.username,
+      };
+    });
+    builder.addCase(deleteAccount.pending, (state, action) => {
+      toast.promise(
+        deleteAccount.pending,
+        {
+          pending: "Account delete pending",
+        },
+        { position: "top-center" }
+      );
+      return { ...state, deleteStatus: "pending" };
+    });
+    builder.addCase(deleteAccount.fulfilled, (state, action) => {
+      toast.promise(
+        deleteAccount.fulfilled,
+        {
+          success: "Account deleted",
+        },
+        { position: "top-center" }
+      );
+      return {
+        ...state,
+        deleteStatus: "success",
+        token: "",
+        name: "",
+        email: "",
+        username: "",
+        _id: "",
+        userProfile: "",
+        registerStatus: "",
+        registerError: "",
+        loginStatus: "",
+        loginError: "",
+        userLoaded: false,
+      };
+    });
+    builder.addCase(deleteAccount.rejected, (state, action) => {
+      toast.promise(
+        deleteAccount.pending,
+        {
+          error: action.payload,
+        },
+        { position: "top-center" }
+      );
+      return {
+        ...state,
+        deleteError: action.payload,
+        deleteStatus: "rejected",
       };
     });
   },

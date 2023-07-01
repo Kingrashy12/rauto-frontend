@@ -18,18 +18,36 @@ const EditForm = ({ u, setOpen }) => {
   const userId = u._id;
   const auth = useSelector((state) => state.auth);
   const loading = auth.editStatus === "pending";
+  // const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: u.name,
     email: u.email,
     username: u.username,
     userProfile: "",
+    userId: auth?._id,
   });
 
   console.log("user:", user);
 
   const handleSubmit = async () => {
-    dispatch(EditUserProfile(user, userId));
+    dispatch(EditUserProfile(user, auth?._id));
+    // setLoading(true);
+    // try {
+    //   await axios.patch(`${BASE_URL}/users/${auth?._id}/edit`, {
+    //     userId: auth?._id,
+    //     name: user.name,
+    //     email: user.email,
+    //     username: user.username,
+    //     userProfile: user.userProfile,
+    //   });
+    //   toast.success("Info updated", { position: "top-center" });
+    // } catch (error) {
+    //   toast.error(error.message, { position: "top-center" });
+    //   console.log(error);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const onImageChange = (e) => {

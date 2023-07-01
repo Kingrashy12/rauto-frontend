@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import {
@@ -13,6 +13,7 @@ import {
   // ProfileCard,
   ProfileCardWidget,
   SellPage,
+  SignIn,
   SignUp,
   Type,
   UserSaved,
@@ -40,7 +41,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/all-listing" element={<AllListing />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<SignIn />} />
+            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/register" element={<SignUp />} />
             <Route path="/auth/reset" element={<Auth />} />
             <Route path="/sell-your-car" element={<SellPage />} />

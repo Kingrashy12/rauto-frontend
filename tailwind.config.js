@@ -12,6 +12,7 @@ module.exports = {
       poppin: "'Poppins', san serif",
       share: "'Share Tech Mono', monospace",
       mono: "'Segoe UI', Tahoma, sans-serif",
+      robotoCon: "'Roboto Condensed', sans-serif",
     },
     backgroundImage: {
       "bg-hero": "url('./hero-bg.png')",

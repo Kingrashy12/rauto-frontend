@@ -3,10 +3,16 @@ import { StyledFooter } from "../../styles/layout/Footer";
 import { RAuto, RAutoLogoNew } from "../../asset";
 import { footerdata, footerdataI, footerdataII } from "../../data/footer";
 import FooterNav from "./FooterNav";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const path = useLocation();
   return (
-    <div className="pb-10 bg-black p-8 mt-20 max-[700px]:p-1 max-[340px]:pb-20 max-[700px]:pb-20 flex flex-col gap-5">
+    <div
+      className={`pb-10 bg-black p-8 mt-20 max-[700px]:p-1 max-[340px]:pb-20 max-[700px]:pb-20 ${
+        path.pathname === "/login" || "/register" ? "hidden" : "flex"
+      } flex-col gap-5 z-[90]`}
+    >
       <StyledFooter className="max-[800px]:flex-col max-[800px]:gap-5 max-[340px]:gap-6">
         <div className="flex flex-col">
           <img

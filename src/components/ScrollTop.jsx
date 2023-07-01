@@ -27,10 +27,10 @@ const ScrollTop = () => {
     <div
       className={`fixed ${
         visible ? "flex" : "hidden"
-      } bg-white z-40 shadow shadow-slate-500 outline-none rounded-lg p-2 bottom-28 max-[700px]:right-3 right-20 cursor-pointer hover:opacity-70`}
+      } bg-white z-[80] shadow shadow-slate-500 outline-none rounded-lg p-2 bottom-28 max-[700px]:right-3 right-20 cursor-pointer hover:opacity-70`}
       onClick={scrollToTop}
     >
-      <IoArrowUp size={25} />
+      <IoArrowUp size={25} color="#000" />
     </div>
   );
 };

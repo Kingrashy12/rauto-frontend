@@ -23,7 +23,7 @@ const Avatar = ({
             />
           ) : (
             <img
-              src={user.userProfile}
+              src={user.userProfile?.url}
               onClick={onClick}
               alt="Avatar"
               className={`${className} ${
