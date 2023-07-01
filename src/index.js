@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import authReducer, { loadUser } from "./hooks/authSlice";
 import saveReducer from "./hooks/saveSlice";
 import UserReducer, { FetchUsers } from "./hooks/UserSlice";
+import { BrowserRouter } from "react-router-dom";
 
 const store = configureStore({
   reducer: {
@@ -29,8 +30,10 @@ store.dispatch(loadUser(null));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );

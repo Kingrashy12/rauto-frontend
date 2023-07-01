@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { BiMessageDetail } from "react-icons/bi";
 import { BsFillBellFill, BsFillBookmarksFill } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { deleteAccount } from "../../hooks/authSlice";
+import { deleteAccount, logOutUser } from "../../hooks/authSlice";
 
 const UserLinks = ({ user, u }) => {
   // const [setLoading] = useState(false);
-  const userId = user._id;
+  const auth = useSelector((state) => state.auth);
+  const userId = auth?._id;
+  // alert(userId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   function handleDelete() {
     dispatch(deleteAccount(userId));
+    setTimeout(() => {
+      dispatch(logOutUser());
+      navigate("/");
+    }, 5000);
   }
 
   return (

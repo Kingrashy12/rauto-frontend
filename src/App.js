@@ -33,32 +33,32 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Navbar />
-          <ToastContainer />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/all-listing" element={<AllListing />} />
-            <Route path="/login" element={<SignIn />} />
-            {/* <Route path="/login" element={<Login />} /> */}
-            <Route path="/register" element={<SignUp />} />
-            <Route path="/auth/reset" element={<Auth />} />
-            <Route path="/sell-your-car" element={<SellPage />} />
-            <Route path="/listing/:id" element={<Details />} />
-            <Route path="/user/:username" element={<ProfileCardWidget />} />
-            <Route path="/notfound" element={<NotFound />} />
-            <Route path="/make/:make" element={<Make />} />
-            <Route path="/user/saved" element={<UserSaved />} />
-            <Route path="/listing/:condition/:body" element={<Type />} />
-            <Route path="/listing/:condition/car" element={<Condition />} />
-          </Routes>
-          <ScrollTop />
-          <Footer />
-          <BottomNav />
-        </ThemeProvider>
-      </BrowserRouter>
+      {/* <BrowserRouter> */}
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Navbar />
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/all-listing" element={<AllListing />} />
+          <Route path="/login" element={<SignIn />} />
+          {/* <Route path="/login" element={<Login />} /> */}
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/auth/reset" element={<Auth />} />
+          <Route path="/sell-your-car" element={<SellPage />} />
+          <Route path="/listing/:id" element={<Details />} />
+          <Route path="/user/:username" element={<ProfileCardWidget />} />
+          <Route path="/notfound" element={<NotFound />} />
+          <Route path="/make/:make" element={<Make />} />
+          <Route path="/user/saved" element={<UserSaved />} />
+          <Route path="/listing/:condition/:body" element={<Type />} />
+          <Route path="/listing/:condition/car" element={<Condition />} />
+        </Routes>
+        <ScrollTop />
+        <Footer />
+        <BottomNav />
+      </ThemeProvider>
+      {/* </BrowserRouter> */}
     </>
   );
 }

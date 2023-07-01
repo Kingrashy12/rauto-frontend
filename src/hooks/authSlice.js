@@ -89,7 +89,7 @@ export const deleteAccount = createAsyncThunk(
   "auth-delete",
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/users/${userId}`);
+      const response = await axios.delete(`${BASE_URL}/users/${userId}/delete`);
       return response?.data;
     } catch (error) {
       toast.error(error.message, { position: "top-center" });
@@ -187,6 +187,7 @@ const authSlice = createSlice({
       } else return state;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
+      toast.error(action.payload, { position: "top-center" });
       return {
         ...state,
         loginStatus: "rejected",
@@ -209,23 +210,14 @@ const authSlice = createSlice({
       };
     });
     builder.addCase(deleteAccount.pending, (state, action) => {
-      toast.promise(
-        deleteAccount.pending,
-        {
-          pending: "Account delete pending",
-        },
-        { position: "top-center" }
-      );
+      toast.info("Account delect pending", { position: "top-center" });
       return { ...state, deleteStatus: "pending" };
     });
     builder.addCase(deleteAccount.fulfilled, (state, action) => {
-      toast.promise(
-        deleteAccount.fulfilled,
-        {
-          success: "Account deleted",
-        },
-        { position: "top-center" }
-      );
+      toast.success("Account delected", { position: "top-center" });
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("saved");
       return {
         ...state,
         deleteStatus: "success",
@@ -243,13 +235,7 @@ const authSlice = createSlice({
       };
     });
     builder.addCase(deleteAccount.rejected, (state, action) => {
-      toast.promise(
-        deleteAccount.pending,
-        {
-          error: action.payload,
-        },
-        { position: "top-center" }
-      );
+      toast.error(action.payload.error, { position: "top-center" });
       return {
         ...state,
         deleteError: action.payload,
