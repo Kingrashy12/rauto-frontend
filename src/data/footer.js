@@ -48,7 +48,7 @@ export const footerdataII = [
   },
   {
     text: "Infipedia",
-    link: "https://infipedia.vercel.app/Rauto",
+    link: "https://infipedia.vercel.app/RAuto",
   },
   {
     text: "Discord",
