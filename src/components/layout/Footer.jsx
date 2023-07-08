@@ -9,11 +9,7 @@ const Footer = () => {
   const path = useLocation();
   return (
     <div
-      className={`pb-10 bg-black p-8 mt-20 max-[700px]:p-1 max-[340px]:pb-20 max-[700px]:pb-20 ${
-        path.pathname === "/login" ? "hidden" : "flex"
-      } flex-col ${
-        path.pathname === "/register" ? "hidden" : "flex"
-      } gap-5 z-[90]`}
+      className={`pb-10 bg-black p-8 mt-20 max-[700px]:p-1 max-[340px]:pb-20 max-[700px]:pb-20 flex gap-5 z-[90]`}
     >
       <StyledFooter className="max-[800px]:flex-col max-[800px]:gap-5 max-[340px]:gap-6">
         <div className="flex flex-col">
