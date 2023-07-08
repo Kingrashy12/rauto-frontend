@@ -5,7 +5,6 @@ import {
   HeroHeader,
   HeroSection,
   ShopSection,
-  Footer,
 } from "../components";
 
 const Home = () => {
@@ -22,7 +21,6 @@ const Home = () => {
       <hr />
       <FindFitSection />
       <ShopSection />
-      <Footer />
     </div>
   );
 };
